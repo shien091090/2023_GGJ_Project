@@ -15,7 +15,6 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         Instacne = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     public PlayerBase GetAnotherPlayer(PlayerType playerType)

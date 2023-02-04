@@ -1,5 +1,5 @@
 public enum TriggerTarget
 {
-    Self,
+    Self = 0,
     Another
 }

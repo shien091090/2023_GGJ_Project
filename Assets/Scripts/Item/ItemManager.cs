@@ -28,7 +28,6 @@ public class ItemManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     private void Update()
@@ -77,14 +76,16 @@ public class ItemManager : MonoBehaviour
     private void RandomCreateItem(List<ItemBase> selectData)
     {
         var randIndex = Random.Range(0 , selectData.Count - 1);
+        var values = System.Enum.GetValues(typeof(TriggerTarget));
+        var randTrigger = (TriggerTarget)Random.Range(0, values.Length - 1);
 
-        CreateItem(selectData[randIndex] , new Vector2(Random.Range(0 , 100) , Random.Range(0 , 100)));
+        CreateItem(selectData[randIndex] , randTrigger , new Vector2(Random.Range(0 , 100) , Random.Range(0 , 100)));
     }
 
-    public void CreateItem(ItemBase itemBase , Vector2 pos)
+    public void CreateItem(ItemBase itemBase , TriggerTarget triggerTarget , Vector2 pos)
     {
         ItemBase item = GameObject.Instantiate(itemBase , pos , Quaternion.identity , _itemParent_tran);
-        item.InitBuff(ReleaseItem);
+        item.InitBuff(triggerTarget , ReleaseItem);
         _processItemBases.Add(item);
     }
 
@@ -96,7 +97,7 @@ public class ItemManager : MonoBehaviour
 
     public void OnCollider_Item(PlayerBase playerBase , ItemBase itemBase)
     {
-        if (itemBase.GetTriggerType == TriggerTarget.Self)
+        if (itemBase.TriggerType == TriggerTarget.Self)
             itemBase.TriggerBuff(playerBase);
         else
         {

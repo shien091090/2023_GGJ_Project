@@ -5,8 +5,6 @@ using UnityEngine;
 
 public abstract class ItemBase : MonoBehaviour
 {
-    [SerializeField]
-    protected TriggerTarget _triggerTarget = TriggerTarget.Another;
 
     [SerializeField]
     protected float _buffTime = 0;
@@ -23,10 +21,11 @@ public abstract class ItemBase : MonoBehaviour
     protected PlayerBase _playerBase = null;
     private Action<ItemBase> _releaseItem = null;
 
-    public TriggerTarget GetTriggerType => _triggerTarget;
+    public TriggerTarget TriggerType { get; protected set; }
 
-    public void InitBuff(Action<ItemBase> releaseBuff)
+    public void InitBuff(TriggerTarget triggerTarget , Action<ItemBase> releaseBuff)
     {
+        TriggerType = triggerTarget;
         _releaseItem = releaseBuff;
 
         _elpasedTime = 0;
