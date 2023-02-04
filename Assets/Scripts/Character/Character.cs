@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class Character : PlayerBase
 {
-    private const int LAYER_PLATFORM = 14;
+    private const int LAYER_RADISH = 8;
     private const int LAYER_CHARACTER = 11;
+    private const int LAYER_PLATFORM = 14;
     [SerializeField] private PlayerType _playerType;
     [SerializeField] private float moveSpeed;
     [SerializeField] private bool isOnFloor;
@@ -34,6 +35,8 @@ public class Character : PlayerBase
             EnterCollidePlatform();
         if (IsCollideOn(col, LAYER_CHARACTER))
             EnterCollideCharacter(col);
+        if (IsCollideOn(col, LAYER_RADISH))
+            EnterCollideRadish(col);
     }
 
     private void OnCollisionExit2D(Collision2D col)
@@ -71,20 +74,23 @@ public class Character : PlayerBase
         canJump = true;
     }
 
+    private void EnterCollideRadish(Collision2D col)
+    {
+    }
+
     private void EnterCollideCharacter(Collision2D col)
     {
         ContactPoint2D[] contactPoints = col.contacts;
         ContactPoint2D contactPoint = contactPoints[0];
 
-        Character collisionCharacter = col.gameObject.GetComponent<Character>();
-        if (collisionCharacter != null)
+        if (HaveCollisionTarget(col, out Character collisionCharacter))
             collisionCharacter.BeStroked(moveSpeed, contactPoint);
     }
 
-    private void BeStroked(float targetMoveSpeed, ContactPoint2D contactPoint)
+    private bool HaveCollisionTarget<T>(Collision2D col, out T target) where T : MonoBehaviour
     {
-        Vector2 strikeVector = new Vector2(contactPoint.normal.x * targetMoveSpeed * 0.1f, characterSetting.strikeRiseForce);
-        Debug.Log($"{gameObject.name} BeStroked, normal = {contactPoint.normal}, targetMoveSpeed = {targetMoveSpeed}, strikeVector = {strikeVector}");
+        target = col.gameObject.GetComponent<T>();
+        return target != null;
     }
 
     private void ExitCollidePlatform()
@@ -92,6 +98,12 @@ public class Character : PlayerBase
         isOnFloor = false;
         if (isJumping == false)
             canJump = false;
+    }
+
+    private void BeStroked(float targetMoveSpeed, ContactPoint2D contactPoint)
+    {
+        Vector2 strikeVector = new Vector2(contactPoint.normal.x * targetMoveSpeed * 0.1f, characterSetting.strikeRiseForce);
+        Debug.Log($"{gameObject.name} BeStroked, normal = {contactPoint.normal}, targetMoveSpeed = {targetMoveSpeed}, strikeVector = {strikeVector}");
     }
 
     private bool IsCollideOn(Collision2D col, int collisionTargetLayer)
