@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8502326242051114049}
   - component: {fileID: 4085956997584969065}
   - component: {fileID: 1898540229362911623}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ItemSpeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,6 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sr: {fileID: 8502326242051114049}
+  _collider2D: {fileID: 4085956997584969065}
   _buffTime: 3
   _disappearTime: 3
   _changeMulSpeed: 0.2
