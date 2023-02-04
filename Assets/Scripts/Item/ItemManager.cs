@@ -86,24 +86,30 @@ public class ItemManager : MonoBehaviour
 
     private void RandomCreateItem(List<ItemBase> selectData)
     {
-        var randIndex = Random.Range(0 , selectData.Count - 1);
-        var values = System.Enum.GetValues(typeof(TriggerTarget));
-        var randTrigger = (TriggerTarget)Random.Range(0, values.Length - 1);
+        if (TerrainManager.Instances.GetTerrain(out (int id, Vector2 pos) data))
+        {
+            var randIndex = Random.Range(0 , selectData.Count);
+            var values = System.Enum.GetValues(typeof(TriggerTarget));
+            var randTrigger = (TriggerTarget)Random.Range(0 , values.Length);
 
-        CreateItem(selectData[randIndex] , randTrigger , new Vector2(Random.Range(0 , 100) , Random.Range(0 , 100)));
+            CreateItem(selectData[randIndex] , randTrigger , data.id , data.pos);
+        }
     }
 
-    public void CreateItem(ItemBase itemBase , TriggerTarget triggerTarget , Vector2 pos)
+    public void CreateItem(ItemBase itemBase , TriggerTarget triggerTarget , int terrainId , Vector2 pos)
     {
         ItemBase item = GameObject.Instantiate(itemBase , pos , Quaternion.identity , _itemParent_tran);
-        item.InitBuff(triggerTarget , ReleaseItem);
+        item.InitBuff(triggerTarget , terrainId , ReleaseItem);
         _processItemBases.Add(item);
     }
 
     private void ReleaseItem(ItemBase itemBase)
     {
-        if(!_waiteRemoveItemBases.Contains(itemBase))
+        if (!_waiteRemoveItemBases.Contains(itemBase))
+        {
+            TerrainManager.Instances.ReleaseTerrain(itemBase.TerrainId);
             _waiteRemoveItemBases.Add(itemBase);
+        }
     }
 
     public void OnCollider_Item(PlayerBase playerBase , ItemBase itemBase)

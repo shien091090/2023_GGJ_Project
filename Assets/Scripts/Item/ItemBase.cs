@@ -22,9 +22,11 @@ public abstract class ItemBase : MonoBehaviour
     private Action<ItemBase> _releaseItem = null;
 
     public TriggerTarget TriggerType { get; protected set; }
+    public int TerrainId { get; protected set; } = -1;
 
-    public void InitBuff(TriggerTarget triggerTarget , Action<ItemBase> releaseBuff)
+    public void InitBuff(TriggerTarget triggerTarget , int terrainId , Action<ItemBase> releaseBuff)
     {
+        TerrainId = terrainId;
         TriggerType = triggerTarget;
         _releaseItem = releaseBuff;
 
