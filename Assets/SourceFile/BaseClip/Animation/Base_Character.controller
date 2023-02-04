@@ -32,7 +32,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Base_SymbolView
+  m_Name: Base_Character
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:

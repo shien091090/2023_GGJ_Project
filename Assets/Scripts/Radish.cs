@@ -59,9 +59,10 @@ public class Radish : MonoBehaviour
             return false;
     }
 
-    public void StartPull()
+    public int StartPull()
     {
         nowState = RadishState.Busy;
+        return radishNowHp;
     }   
 
     public void PullQteSuccess()
