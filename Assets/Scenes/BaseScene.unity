@@ -282,6 +282,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5762313383549848896, guid: 69c415787269b7a448bfd7388d3014e1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3153052
+      objectReference: {fileID: 0}
+    - target: {fileID: 5762313383549848896, guid: 69c415787269b7a448bfd7388d3014e1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.3157046
+      objectReference: {fileID: 0}
+    - target: {fileID: 5762313383549848896, guid: 69c415787269b7a448bfd7388d3014e1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3.1206632
+      objectReference: {fileID: 0}
+    - target: {fileID: 5762313383549848896, guid: 69c415787269b7a448bfd7388d3014e1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 10.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5762313383549848896, guid: 69c415787269b7a448bfd7388d3014e1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -195.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5762313383549848897, guid: 69c415787269b7a448bfd7388d3014e1, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5762313383549848897, guid: 69c415787269b7a448bfd7388d3014e1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b09e920c648bfd44790486c8d915f144, type: 3}
     - target: {fileID: 5762313383589403006, guid: 69c415787269b7a448bfd7388d3014e1, type: 3}
       propertyPath: m_EffectColor.a
       value: 1
@@ -372,7 +400,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5762313385126663503, guid: 69c415787269b7a448bfd7388d3014e1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5762313385270735953, guid: 69c415787269b7a448bfd7388d3014e1, type: 3}
       propertyPath: m_Name
@@ -380,7 +408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5762313385270735953, guid: 69c415787269b7a448bfd7388d3014e1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5762313385270735962, guid: 69c415787269b7a448bfd7388d3014e1, type: 3}
       propertyPath: m_Pivot.x
