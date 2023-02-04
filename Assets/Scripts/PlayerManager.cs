@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public static PlayerManager Instacne { get; private set; }
+    public static PlayerManager Instance { get; private set; }
     
     [SerializeField]
     private PlayerBase player1 = null;
@@ -14,7 +14,12 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
-        Instacne = this;
+        Instance = this;
+    }
+
+    private void OnDestroy()
+    {
+        PlayerManager.Instance = null;
     }
 
     public PlayerBase GetAnotherPlayer(PlayerType playerType)

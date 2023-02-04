@@ -30,6 +30,11 @@ public class ItemManager : MonoBehaviour
         Instance = this;
     }
 
+    private void OnDestroy()
+    {
+        ItemManager.Instance = null;
+    }
+
     private void Update()
     {
         float delta = Time.deltaTime;
@@ -101,7 +106,7 @@ public class ItemManager : MonoBehaviour
             itemBase.TriggerBuff(playerBase);
         else
         {
-            var anotherPlayer = PlayerManager.Instacne.GetAnotherPlayer(playerBase.GetPlayerType());
+            var anotherPlayer = PlayerManager.Instance.GetAnotherPlayer(playerBase.GetPlayerType());
             itemBase.TriggerBuff(anotherPlayer);
         }
     }
