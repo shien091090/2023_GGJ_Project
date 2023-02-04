@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
     public int m_Seconds,m_Min,m_Sec;//總秒數,分鐘,秒
     public Text m_Timer;//時間文字呈現
     public Text timeUp;//時間到
+    public int fractionDoudleSecond = 20;
     
     //場上蘿蔔
     public int maxRadish;
@@ -94,6 +95,10 @@ public class GameController : MonoBehaviour
     //誰得分數
     public void RadishFraction(string who,int fraction)
     {
+        if (m_Seconds < fractionDoudleSecond)
+        {
+            fraction = fraction * 2;
+        }
         switch (who)
         {
             case "P1":
