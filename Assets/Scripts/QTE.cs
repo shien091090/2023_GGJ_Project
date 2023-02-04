@@ -27,13 +27,6 @@ public class QTE : MonoBehaviour
     private Action<bool> callback;
 
 
-    private Rigidbody2D rigid;
-
-    private void Awake()
-    {
-        rigid = GetComponent<Rigidbody2D>();
-    }
-
     public void StartQte(Action<bool> _callBack)
     {
         isPlaying = true;
@@ -47,7 +40,7 @@ public class QTE : MonoBehaviour
         hitterRotate.Kill();
         var rotation = hitter.transform.rotation.eulerAngles.z;
         if (hitBoxEnd >= rotation && rotation >= hitBoxStart)
-            DOVirtual.DelayedCall(info.hitterSuccessDelayTime, QteSuccess);
+            QteSuccess();
         else
             QteFail();
     }
@@ -67,7 +60,6 @@ public class QTE : MonoBehaviour
     }
     private void PlayHitter()
     {
-        hitter.gameObject.SetActive(true);
         hitterRotate = hitter.transform.DOLocalRotate(new Vector3(0,0,-QteInfo.FULL_ANGLE), info.qteTime, RotateMode.FastBeyond360)
             .SetEase(Ease.Linear)
             .OnComplete(()=> {
@@ -77,20 +69,21 @@ public class QTE : MonoBehaviour
     private void QteSuccess()
     {
         callback(true);
-        hitter.gameObject.SetActive(false);
         hitter.transform.rotation = Quaternion.Euler(0, 0, 0);
-        isPlaying = false;
+
+        hitBox.transform.DOScale(new Vector3(1.3f,1.3f,1),info.failShakeTime).OnComplete(()=> {
+            hitBox.transform.localScale = Vector3.one;
+        });
     }
 
     private void QteFail()
     {
-        callback(false);
         hitBox.transform.DOShakePosition(info.failShakeTime, info.failShakeStrength);
         hitter.transform.DOShakePosition(info.failShakeTime, info.failShakeStrength).OnComplete(()=> {
-            hitter.gameObject.SetActive(false);
             hitter.transform.rotation = Quaternion.Euler(0, 0, 0);
         });
         isPlaying = false;
+        callback(false);
     }
 
     private void Update()

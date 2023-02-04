@@ -33,7 +33,7 @@ public class Radish : MonoBehaviour
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
-        radishHeight = sprite.sprite.pivot.y * 0.01f;
+        radishHeight = sprite.sprite.pivot.y * 0.01f * transform.localScale.y;
         radishMaxHp = radishNowHp;
     }
 
@@ -63,7 +63,8 @@ public class Radish : MonoBehaviour
         radishNowHp--;
         if (radishNowHp > 0)
         {
-            transform.DOLocalMoveY(radishHeight / radishMaxHp * (radishMaxHp - radishNowHp), pullOutTime).SetEase(Ease.Linear);
+            var endValue = transform.localPosition.y + (radishHeight / radishMaxHp * (radishMaxHp - radishNowHp));
+            transform.DOLocalMoveY(endValue, pullOutTime).SetEase(Ease.Linear);
         }
         else
         {
