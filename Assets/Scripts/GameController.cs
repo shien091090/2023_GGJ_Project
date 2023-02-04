@@ -24,13 +24,12 @@ public class GameController : MonoBehaviour
     public bool gameStart;
     
     //玩家分數
+    public Text nowTxt_P1, nowTxt_P2;
     public Text txt_P1, txt_P2;
     public int int_P1, int_P2;
     
     //結算圖及文字
     public Text howWin;
-    public Image p1, p2;
-    public Sprite p1_win, p2_win;
     
     //結束畫面
     public GameObject end;
@@ -47,6 +46,8 @@ public class GameController : MonoBehaviour
     
     public void Update()
     {
+        nowTxt_P1.text = int_P1.ToString();
+        nowTxt_P2.text = int_P2.ToString();
         if (gameStart == true)
         {
             int i = int_P1 + int_P2;
@@ -121,12 +122,10 @@ public class GameController : MonoBehaviour
         if (int_P1 > int_P2)
         {
             howWin.text = "P1 WIN!!!!";
-            p1.sprite = p1_win;
-        }
+         }
         else if(int_P2>int_P1)
         {
             howWin.text = "P2 WIN!!!!";
-            p2.sprite = p2_win;
         }
         else
         {
