@@ -24,6 +24,15 @@ public class QTE : MonoBehaviour
     private CharacterKeySetting keySetting;
 
     private Action<bool> callback;
+
+
+    private Rigidbody2D rigid;
+
+    private void Awake()
+    {
+        rigid = GetComponent<Rigidbody2D>();
+    }
+
     public void StartQte(Action<bool> _callBack)
     {
         SetHitBox();
@@ -84,5 +93,17 @@ public class QTE : MonoBehaviour
     {
         if (Input.GetKeyDown(keySetting.actKey))
             TrigQte();
+
+        //if (!rigid.IsTouchingLayers(15) || !rigid.IsTouchingLayers(14))
+        //{
+        //    if (Mathf.Abs(rigid.velocity.x) > 0)
+        //    {
+        //        rigid.velocity = new Vector2(rigid.velocity.x - 0.1f, rigid.velocity.y);
+        //    }
+        //    if (Mathf.Abs(rigid.velocity.y) > 0)
+        //    {
+        //        rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y - 0.1f);
+        //    }
+        //}        
     }
 }

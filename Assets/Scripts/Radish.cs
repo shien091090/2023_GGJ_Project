@@ -37,15 +37,18 @@ public class Radish : MonoBehaviour
         radishMaxHp = radishNowHp;
     }
 
-    public bool StartPull()
+    public bool GetIsBusy()
     {
         if (nowState == RadishState.Busy)
-            return false;
-        else
-        { 
-            nowState = RadishState.Busy;
             return true;
-        }
+        else
+            return false;
+
+    }
+
+    public void StartPull()
+    {
+        nowState = RadishState.Busy;
     }
 
     public bool PullQteSuccess()

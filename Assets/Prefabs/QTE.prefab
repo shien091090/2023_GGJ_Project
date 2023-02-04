@@ -134,6 +134,7 @@ MonoBehaviour:
   hitter: {fileID: 8776409627297955149}
   hitBox: {fileID: 8776409626209182202}
   info: {fileID: 11400000, guid: b1143ec4342727a4f973c16d519c8b09, type: 2}
+  keySetting: {fileID: 11400000, guid: 9ebc9e3d08e8c5046a4008773821c2b3, type: 2}
 --- !u!58 &8776409625373633870
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -149,7 +150,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.6
+  m_Radius: 0.55
 --- !u!50 &8776409625373633869
 Rigidbody2D:
   serializedVersion: 4
@@ -162,8 +163,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.5
-  m_LinearDrag: 0
+  m_Mass: 1
+  m_LinearDrag: 0.05
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 9d16f713e9efec540a5a6e8c75580b72, type: 2}
