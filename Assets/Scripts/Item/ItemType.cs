@@ -5,8 +5,6 @@ using UnityEngine;
 public enum ItemType
 {
     None,
-    SelfSpeed,
-    SelfControl,
-    EnemySpeed,
-    EnemyControl
+    Speed,
+    Control,
 }

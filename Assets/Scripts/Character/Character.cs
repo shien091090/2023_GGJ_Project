@@ -50,7 +50,7 @@ public class Character : MonoBehaviour, IPlayer
         return _playerType;
     }
 
-    public void SetBuff()
+    public void SetBuff(ItemType type , object data)
     {
     }
 
