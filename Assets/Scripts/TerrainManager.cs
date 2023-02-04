@@ -69,7 +69,7 @@ public class TerrainGroup
     public Vector2 GetRandPos()
     {
         Vector2 pos = sr.transform.position;
-        pos.y += sr.bounds.size.y;//* 0.5f
+        pos.y += sr.bounds.size.y * 0.5f;
         var dir = Random.Range(0 , 100) > 50 ? 1 : -1;
         pos.x += sr.bounds.size.x * 0.3f * dir;
         return pos;

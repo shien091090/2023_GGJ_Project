@@ -5,6 +5,8 @@ using UnityEngine;
 
 public abstract class ItemBase : MonoBehaviour
 {
+    [SerializeField]
+    private SpriteRenderer _sr = null;
 
     [SerializeField]
     protected float _buffTime = 0;
@@ -23,6 +25,8 @@ public abstract class ItemBase : MonoBehaviour
 
     public TriggerTarget TriggerType { get; protected set; }
     public int TerrainId { get; protected set; } = -1;
+
+    public Vector2 SpriteSize => _sr.bounds.size;
 
     public void InitBuff(TriggerTarget triggerTarget , int terrainId , Action<ItemBase> releaseBuff)
     {

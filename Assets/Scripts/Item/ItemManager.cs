@@ -98,7 +98,10 @@ public class ItemManager : MonoBehaviour
 
     public void CreateItem(ItemBase itemBase , TriggerTarget triggerTarget , int terrainId , Vector2 pos)
     {
-        ItemBase item = GameObject.Instantiate(itemBase , pos , Quaternion.identity , _itemParent_tran);
+        var newPos = pos;
+        newPos.y += itemBase.SpriteSize.y * 0.5f;
+
+        ItemBase item = GameObject.Instantiate(itemBase , newPos , Quaternion.identity , _itemParent_tran);
         item.InitBuff(triggerTarget , terrainId , ReleaseItem);
         _processItemBases.Add(item);
     }
