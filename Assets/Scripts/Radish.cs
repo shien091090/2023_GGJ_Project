@@ -63,7 +63,7 @@ public class Radish : MonoBehaviour
         radishNowHp--;
         if (radishNowHp > 0)
         {
-            var endValue = transform.localPosition.y + (radishHeight / radishMaxHp * (radishMaxHp - radishNowHp));
+            var endValue = transform.localPosition.y + 0.1f; //(radishHeight / radishMaxHp * (radishMaxHp - radishNowHp));
             transform.DOLocalMoveY(endValue, pullOutTime).SetEase(Ease.Linear);
         }
         else
