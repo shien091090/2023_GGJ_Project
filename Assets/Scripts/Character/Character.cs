@@ -5,9 +5,11 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Character : MonoBehaviour
+public class Character : MonoBehaviour, IPlayer
 {
     private const int LAYER_PLATFORM = 9;
+    [SerializeField]
+    private PlayerType _playerType;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
     [SerializeField] private bool isOnFloor;
@@ -101,5 +103,15 @@ public class Character : MonoBehaviour
             if (isJumping == false)
                 canJump = false;
         }
+    }
+
+
+    public PlayerType GetPlayerType()
+    {
+        return _playerType;
+    }
+
+    public void SetBuff()
+    {
     }
 }
