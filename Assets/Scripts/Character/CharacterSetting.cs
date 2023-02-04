@@ -8,4 +8,5 @@ public class CharacterSetting : ScriptableObject
     public float speedLimit;
     public float jumpForceConsume;
     public float jumpForce;
+    public float strikeRiseForce;
 }

@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Character : PlayerBase
 {
-    private const int LAYER_PLATFORM = 9;
+    private const int LAYER_PLATFORM = 14;
+    private const int LAYER_CHARACTER = 11;
     [SerializeField] private PlayerType _playerType;
     [SerializeField] private float moveSpeed;
     [SerializeField] private bool isOnFloor;
@@ -11,15 +12,16 @@ public class Character : PlayerBase
     [SerializeField] private bool canJump;
     public CharacterSetting characterSetting;
     public CharacterKeySetting characterKeySetting;
+    public QTE qte;
+    private int _buff_Direction = 1;
 
     private float _buff_MoveSpeed = 1;
-    private int _buff_Direction = 1;
 
     private Rigidbody2D GetRigidBody => GetComponent<Rigidbody2D>();
 
     private void FixedUpdate()
     {
-        var moveDirection = GetInputMoveDirection() * _buff_Direction;
+        int moveDirection = GetInputMoveDirection() * _buff_Direction;
         float horizontalMoveSpeed = GetHorizontalMoveSpeed(moveDirection) * _buff_MoveSpeed;
         float verticalMoveSpeed = GetVerticalMoveSpeed();
 
@@ -28,25 +30,16 @@ public class Character : PlayerBase
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        bool isCollidePlatform = col.gameObject.layer == LAYER_PLATFORM;
-        if (isCollidePlatform)
-        {
-            currentJumpSpeed = characterSetting.jumpForce;
-            isOnFloor = true;
-            isJumping = false;
-            canJump = true;
-        }
+        if (IsCollideOn(col, LAYER_PLATFORM))
+            EnterCollidePlatform();
+        if (IsCollideOn(col, LAYER_CHARACTER))
+            EnterCollideCharacter(col);
     }
 
     private void OnCollisionExit2D(Collision2D col)
     {
-        bool isCollidePlatform = col.gameObject.layer == LAYER_PLATFORM;
-        if (isCollidePlatform)
-        {
-            isOnFloor = false;
-            if (isJumping == false)
-                canJump = false;
-        }
+        if (IsCollideOn(col, LAYER_PLATFORM))
+            ExitCollidePlatform();
     }
 
     public override PlayerType GetPlayerType()
@@ -54,7 +47,7 @@ public class Character : PlayerBase
         return _playerType;
     }
 
-    public override void SetBuff(ItemType itemType , object data)
+    public override void SetBuff(ItemType itemType, object data)
     {
         if (data == null)
             return;
@@ -68,6 +61,43 @@ public class Character : PlayerBase
                 _buff_Direction = (int)data;
                 break;
         }
+    }
+
+    private void EnterCollidePlatform()
+    {
+        currentJumpSpeed = characterSetting.jumpForce;
+        isOnFloor = true;
+        isJumping = false;
+        canJump = true;
+    }
+
+    private void EnterCollideCharacter(Collision2D col)
+    {
+        ContactPoint2D[] contactPoints = col.contacts;
+        ContactPoint2D contactPoint = contactPoints[0];
+
+        Character collisionCharacter = col.gameObject.GetComponent<Character>();
+        if (collisionCharacter != null)
+            collisionCharacter.BeStroked(moveSpeed, contactPoint);
+    }
+
+    private void BeStroked(float targetMoveSpeed, ContactPoint2D contactPoint)
+    {
+        Vector2 strikeVector = new Vector2(contactPoint.normal.x * targetMoveSpeed * 0.1f, characterSetting.strikeRiseForce);
+        Debug.Log($"{gameObject.name} BeStroked, normal = {contactPoint.normal}, targetMoveSpeed = {targetMoveSpeed}, strikeVector = {strikeVector}");
+    }
+
+    private void ExitCollidePlatform()
+    {
+        isOnFloor = false;
+        if (isJumping == false)
+            canJump = false;
+    }
+
+    private bool IsCollideOn(Collision2D col, int collisionTargetLayer)
+    {
+        bool isCollidePlatform = col.gameObject.layer == collisionTargetLayer;
+        return isCollidePlatform;
     }
 
     private float GetVerticalMoveSpeed()

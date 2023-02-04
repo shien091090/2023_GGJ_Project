@@ -17,3 +17,4 @@ MonoBehaviour:
   speedLimit: 400
   jumpForceConsume: 12
   jumpForce: 450
+  strikeRiseForce: 10
