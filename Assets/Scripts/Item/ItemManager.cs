@@ -10,6 +10,9 @@ public class ItemManager : MonoBehaviour
     private Transform _itemParent_tran;
 
     [SerializeField]
+    private List<Transform> _createTrans = null;
+
+    [SerializeField]
     private bool _isRandomCreateItem = false;
 
     [SerializeField]
@@ -56,7 +59,10 @@ public class ItemManager : MonoBehaviour
         if (_isNeedRemoveItem)
         {
             foreach (var itemBase in _waiteRemoveItemBases)
+            {
                 _processItemBases.Remove(itemBase);
+                Destroy(itemBase.gameObject);
+            }
 
             _waiteRemoveItemBases.Clear();
         }
