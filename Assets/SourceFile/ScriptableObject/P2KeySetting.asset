@@ -15,3 +15,4 @@ MonoBehaviour:
   moveLeftKey: 97
   moveRightKey: 100
   moveUpKey: 119
+  actKey: 115

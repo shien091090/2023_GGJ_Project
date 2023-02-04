@@ -11,23 +11,16 @@ public class QTE : MonoBehaviour
     [SerializeField]
     private Image hitBox;
 
-    [SerializeField]
-    [Range(0,1)]
-    private float hitBoxMinRange;
-    [SerializeField]
-    [Range(0, 1)]
-    private float hitBoxMaxRnage;
-    [SerializeField]
-    [Range(0, 1)]
-    private float hitBoxRotateMin;
-
     private float hitBoxStart;
     private float hitBoxEnd;
 
-    private bool hitterRotateSwitch;
-    private float hitterRotateSpeed;
-    private float hitterRotateY;
+    private Tween hitterRotate;
 
+    [SerializeField]
+    private QteInfo info;
+
+    [SerializeField]
+    private CharacterKeySetting keySetting;
     public void StartQte()
     {
         SetHitBox();
@@ -36,8 +29,14 @@ public class QTE : MonoBehaviour
 
     public bool TrigQte()
     {
-        if (hitBoxEnd <= hitter.transform.rotation.y && hitter.transform.rotation.y >= hitBoxStart)
+        hitterRotate.Kill();
+        var rotation = QteInfo.FULL_ANGLE - hitter.transform.rotation.z;
+        Debug.Log(rotation);
+        if (hitBoxEnd >= rotation && rotation >= hitBoxStart)
+        {   
+            DOVirtual.DelayedCall(info.hitterSuccessDelayTime, QteSuccess);
             return true;
+        }
         else
         {
             QteFail();
@@ -45,37 +44,48 @@ public class QTE : MonoBehaviour
         }
     }
 
-    [ContextMenu("Yep")]
-    public void PlayHitter()
+    public void QteUnexceptedStop()
     {
-        hitter.gameObject.SetActive(true);
-        hitterRotateSwitch = true;
-        //hitter.transform.DOLocalRotate(new Vector3(0,0,-180),2).SetEase(Ease.Linear);
-    }
-    private void QteFail()
-    {
-        hitter.gameObject.SetActive(false);
-        //hit ®Ì°Ê
-        hitterRotateSwitch = false;
-
+        QteFail();
     }
 
     private void SetHitBox()
     {
-        hitBox.fillAmount = Random.Range(hitBoxMinRange,hitBoxMaxRnage);
-        var rotate = Random.Range(hitBox.fillAmount,1 - hitBoxRotateMin) * 360;
-        hitBox.rectTransform.localRotation = Quaternion.Euler(new Vector3(0,0, rotate));
-        hitBoxStart = rotate + hitBox.fillAmount * 360;
+        hitBox.fillAmount = Random.Range(info.hitBoxMinRange, info.hitBoxMaxRnage);
+        var rotate = Random.Range(hitBox.fillAmount, 1 - info.hitBoxRotateMin) * QteInfo.FULL_ANGLE;
+        hitBox.rectTransform.localRotation = Quaternion.Euler(new Vector3(0, 0, rotate));
+        hitBoxStart = rotate - hitBox.fillAmount * QteInfo.FULL_ANGLE;
         hitBoxEnd = rotate;
     }
+    private void PlayHitter()
+    {
+        hitter.gameObject.SetActive(true);
+        hitterRotate = hitter.transform.DOLocalRotate(new Vector3(0,0,-QteInfo.FULL_ANGLE), info.qteTime, RotateMode.FastBeyond360)
+            .SetEase(Ease.Linear)
+            .OnComplete(()=> {
+            QteFail();
+        });
+    }
+    private void QteSuccess()
+    {
+        hitter.gameObject.SetActive(false);
+        hitter.transform.rotation = Quaternion.Euler(0, 0, 0);
+    }
 
+    private void QteFail()
+    {
+        hitBox.transform.DOShakePosition(info.failShakeTime, info.failShakeStrength);
+        hitter.transform.DOShakePosition(info.failShakeTime, info.failShakeStrength).OnComplete(()=> {
+            hitter.gameObject.SetActive(false);
+            hitter.transform.rotation = Quaternion.Euler(0, 0, 0);
+        });
+    }
 
     private void Update()
     {
-        if (hitterRotateSwitch)
-        { 
-            hitterRotateY += Time.deltaTime * hitterRotateSpeed;
-            hitter.transform.localRotation = Quaternion.Euler(0,0, hitterRotateY);
-        }
+        if (Input.GetKeyDown(KeyCode.A))
+            StartQte();
+        if (Input.GetKeyDown(KeyCode.Space))
+            TrigQte();
     }
 }

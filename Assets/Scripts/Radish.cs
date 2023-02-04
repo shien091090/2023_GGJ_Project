@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 
 public enum RadishState
 {
-    Underground,
-    Head,
-    Half,
-    almost,
+    Idle,
+    Busy,
     Complete    
 }
 
@@ -23,48 +22,53 @@ public class Radish : MonoBehaviour
     [SerializeField]
     private float pullOutTime;
 
-    private bool isPulling;
     private float radishHeight;
     private RadishState nowState;
     private SpriteRenderer sprite;
+    [SerializeField]
+    private int radishNowHp;
+    private int radishMaxHp;
 
 
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
         radishHeight = sprite.size.y;
+        radishMaxHp = radishNowHp;
     }
 
-    public void StartPull()
+    public bool StartPull()
     {
-        if(isPulling != true)
-            isPulling = true;
+        if (nowState == RadishState.Busy)
+            return false;
+        else
+        { 
+            nowState = RadishState.Busy;
+            return true;
+        }
     }
 
-    public void PullQteSuccess()
+    public bool PullQteSuccess()
     {
-        LevelUp();
+        if (radishNowHp > 0)
+        {
+            nowState--;
+            transform.DOMoveY(radishHeight * radishNowHp / radishMaxHp, pullOutTime).SetEase(Ease.Linear);
+            return false;
+        }
+        else
+        {
+            nowState = RadishState.Complete;
+            transform.DOMoveY(flyOutDistance, flyOutTime).SetEase(Ease.Linear).OnComplete(() => {
+                sprite.DOFade(0, flyOutTime).SetEase(Ease.Linear).OnComplete(() => {
+                    DestroyImmediate(gameObject);
+                    }); 
+            });
+            return true;
+        }
     }
     public void PullQteFail()
     {
-        isPulling = false;
-        nowState = RadishState.Underground;
-    }
-
-    private void LevelUp()
-    {
-        if ((int)nowState < 4)
-        { 
-            nowState++;
-            transform.DOMoveY(radishHeight * (int)nowState / 5,pullOutTime).SetEase(Ease.Linear);
-        }
-        if (nowState == RadishState.Complete)
-        {
-            isPulling = false;
-            sprite.DOFade(0, flyOutTime).SetEase(Ease.Linear);
-            transform.DOMoveY(flyOutDistance, flyOutTime).SetEase(Ease.Linear).OnComplete(() => {
-                DestroyImmediate(gameObject);
-            });
-        }
+        nowState = RadishState.Idle;
     }
 }

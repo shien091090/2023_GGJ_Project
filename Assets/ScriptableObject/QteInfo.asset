@@ -9,10 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbb6a7f069404ac6a2de244f2053f3bb, type: 3}
-  m_Name: P1KeySetting
+  m_Script: {fileID: 11500000, guid: 242187f89b98c0e419149e0386ede600, type: 3}
+  m_Name: QteInfo
   m_EditorClassIdentifier: 
-  moveLeftKey: 276
-  moveRightKey: 275
-  moveUpKey: 273
-  actKey: 274
+  hitBoxMinRange: 0.1
+  hitBoxMaxRnage: 0.2
+  hitBoxRotateMin: 0.2
+  hitterSuccessDelayTime: 0.2
+  failShakeTime: 0.3
+  failShakeStrength: 0.5
+  qteTime: 5
