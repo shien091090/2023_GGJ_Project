@@ -10,7 +10,7 @@ public class ItemManager : MonoBehaviour
     private Transform _itemParent_tran;
 
     [SerializeField]
-    private bool _isRandomCreateITem = false;
+    private bool _isRandomCreateItem = false;
 
     [SerializeField]
     private float _randomCreateItemTime = 10;
@@ -35,7 +35,7 @@ public class ItemManager : MonoBehaviour
     {
         float delta = Time.deltaTime;
 
-        if (_isRandomCreateITem && !_isNeedCreateItem)
+        if (_isRandomCreateItem && !_isNeedCreateItem)
         {
             _elpasedRandomCreateItem += delta;
 
@@ -44,9 +44,7 @@ public class ItemManager : MonoBehaviour
         }
 
         foreach (var itemBase in _processItemBases)
-        {
             itemBase.Tick(delta);
-        }
     }
 
     private void LateUpdate()

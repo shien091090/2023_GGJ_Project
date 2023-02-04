@@ -12,11 +12,15 @@ public class Character : MonoBehaviour, IPlayer
     public CharacterSetting characterSetting;
     public CharacterKeySetting characterKeySetting;
 
+    private float _buff_MoveSpeed = 1;
+    private int _buff_Direction = 1;
+
     private Rigidbody2D GetRigidBody => GetComponent<Rigidbody2D>();
 
     private void FixedUpdate()
     {
-        float horizontalMoveSpeed = GetHorizontalMoveSpeed(GetInputMoveDirection());
+        var moveDirection = GetInputMoveDirection() * _buff_Direction;
+        float horizontalMoveSpeed = GetHorizontalMoveSpeed(moveDirection) * _buff_MoveSpeed;
         float verticalMoveSpeed = GetVerticalMoveSpeed();
 
         GetRigidBody.velocity = new Vector2(horizontalMoveSpeed * Time.fixedDeltaTime, verticalMoveSpeed);
@@ -50,8 +54,20 @@ public class Character : MonoBehaviour, IPlayer
         return _playerType;
     }
 
-    public void SetBuff(ItemType type , object data)
+    public void SetBuff(ItemType itemType , object data)
     {
+        if (data == null)
+            return;
+
+        switch (itemType)
+        {
+            case ItemType.Speed:
+                _buff_MoveSpeed = (float)data;
+                break;
+            case ItemType.Control:
+                _buff_Direction = (int)data;
+                break;
+        }
     }
 
     private float GetVerticalMoveSpeed()
