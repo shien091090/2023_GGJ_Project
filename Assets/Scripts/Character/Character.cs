@@ -31,13 +31,13 @@ public class Character : PlayerBase
         if (isPlayingQte)
             return;
 
-        HorizontalMove();
-        // float verticalMoveSpeed = GetVerticalMoveSpeed();
-
         if (HaveCollidingRadish &&
             Input.GetKeyDown(characterKeySetting.actKey) &&
             collisionRadish.GetIsBusy() == false)
             PullRadish();
+        HorizontalMove();
+        // float verticalMoveSpeed = GetVerticalMoveSpeed();
+
     }
 
     private void HorizontalMove()
@@ -131,7 +131,7 @@ public class Character : PlayerBase
     {
         if (isQteSuccess && HaveCollidingRadish)
         {
-            if (!collisionRadish.GetIsCompelete()) PullRadish();
+            if (!collisionRadish.GetIsComplete()) PullRadish();
             else
             {
                 isPlayingQte = false;

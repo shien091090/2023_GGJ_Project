@@ -45,19 +45,18 @@ public class Radish : MonoBehaviour
             return false;
 
     }
-
-    public void StartPull()
-    {
-        nowState = RadishState.Busy;
-    }
-
-    public bool GetIsCompelete()
+    public bool GetIsComplete()
     {
         if (nowState == RadishState.Complete)
             return true;
         else
             return false;
     }
+
+    public void StartPull()
+    {
+        nowState = RadishState.Busy;
+    }   
 
     public void PullQteSuccess()
     {
