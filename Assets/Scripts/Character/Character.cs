@@ -14,6 +14,7 @@ public class Character : PlayerBase
     [SerializeField] private bool canJump;
     [SerializeField] private bool isPlayingQte;
     [SerializeField] private Radish collisionRadish;
+    [SerializeField] private float moveTimer;
     public CharacterSetting characterSetting;
     public CharacterKeySetting characterKeySetting;
     public QTE qte;
@@ -28,17 +29,19 @@ public class Character : PlayerBase
     private void FixedUpdate()
     {
         if (isPlayingQte)
-        {
             return;
-        }
 
-        int moveDirection = GetInputMoveDirection() * _buff_Direction;
-        float horizontalMoveSpeed = GetHorizontalMoveSpeed(moveDirection) * _buff_MoveSpeed;
-        float verticalMoveSpeed = GetVerticalMoveSpeed();
+        HorizontalMove();
+        // float verticalMoveSpeed = GetVerticalMoveSpeed();
 
         if (HaveCollidingRadish && Input.GetKeyDown(characterKeySetting.actKey)) CheckToPullRadish();
+    }
 
-        GetRigidBody.velocity = new Vector2(horizontalMoveSpeed * Time.fixedDeltaTime, verticalMoveSpeed);
+    private void HorizontalMove()
+    {
+        int moveDirection = GetInputMoveDirection() * _buff_Direction;
+        float horizontalMoveSpeed = GetHorizontalMoveSpeed(moveDirection) * _buff_MoveSpeed;
+        GetRigidBody.velocity += new Vector2(horizontalMoveSpeed * Time.fixedDeltaTime, 0);
     }
 
     private void OnCollisionEnter2D(Collision2D col)
@@ -106,6 +109,7 @@ public class Character : PlayerBase
         if (isPlayingQte)
         {
             qte.QteUnexceptedStop();
+            collisionRadish.PullQteFail();
             isPlayingQte = false;
         }
 
@@ -211,17 +215,23 @@ public class Character : PlayerBase
         switch (direction)
         {
             case 1:
-                moveSpeed = Mathf.Min(moveSpeed + characterSetting.acceleration, characterSetting.speedLimit);
+                moveSpeed = characterSetting.moveSpeedCurve.Evaluate(moveTimer);
+                moveTimer += Time.fixedDeltaTime;
                 break;
             case -1:
-                moveSpeed = Mathf.Max(moveSpeed - characterSetting.acceleration, -characterSetting.speedLimit);
+                moveSpeed = -characterSetting.moveSpeedCurve.Evaluate(moveTimer);
+                moveTimer += Time.fixedDeltaTime;
                 break;
             case 0:
             {
-                if (moveSpeed > 0)
-                    moveSpeed = Mathf.Max(moveSpeed - characterSetting.breakAcceleration, 0);
-                else if (moveSpeed < 0)
-                    moveSpeed = Mathf.Min(moveSpeed + characterSetting.breakAcceleration, 0);
+                moveTimer = 0;
+
+                if (GetRigidBody.velocity.x > 0)
+                    moveSpeed -= characterSetting.breakAcceleration;
+                else if (GetRigidBody.velocity.x < 0)
+                    moveSpeed += characterSetting.breakAcceleration;
+                else if (GetRigidBody.velocity.x > -0.1f && GetRigidBody.velocity.x < 0.1f)
+                    moveSpeed = 0;
                 break;
             }
         }

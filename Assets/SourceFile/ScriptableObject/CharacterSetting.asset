@@ -12,9 +12,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12ab812297574e24bf67f13f74fec510, type: 3}
   m_Name: CharacterSetting
   m_EditorClassIdentifier: 
-  acceleration: 9
-  breakAcceleration: 35
-  speedLimit: 400
+  acceleration: 45
+  accelerationLimit: 45
+  breakAcceleration: 5
   jumpForceConsume: 12
   jumpForce: 450
-  strikeRiseForce: 10
+  strikeRiseForce: 0
+  moveSpeedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 116.863655
+      outSlope: 116.863655
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.108333334
+    - serializedVersion: 3
+      time: 1
+      value: 45
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 2
+      value: 20
+      inSlope: -1.3614103
+      outSlope: -1.3614103
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.45000005
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
