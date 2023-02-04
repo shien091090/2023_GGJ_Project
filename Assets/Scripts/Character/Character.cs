@@ -69,12 +69,9 @@ public class Character : PlayerBase
 
         if (IsTriggerOn(col, LAYER_ITEM))
         {
-            //var itemBase = col.gameObject.GetComponent<ItemBase>();
-            //if (itemBase != null)
-            //{
-            //    Debug.LogWarning($"Isaac  {itemBase == null}  {col.gameObject.name}");
-            //    ItemManager.Instance.OnCollider_Item(this , itemBase);
-            //}
+            var itemBase = col.gameObject.GetComponent<ItemBase>();
+            if (itemBase != null)
+                ItemManager.Instance.OnCollider_Item(this , itemBase);
         }
     }
 
