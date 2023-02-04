@@ -15,7 +15,7 @@ MonoBehaviour:
   hitBoxMinRange: 0.1
   hitBoxMaxRnage: 0.2
   hitBoxRotateMin: 0.2
-  hitterSuccessDelayTime: 0.2
+  hitterSuccessDelayTime: 0.5
   failShakeTime: 0.3
   failShakeStrength: 0.5
-  qteTime: 5
+  qteTime: 2

@@ -33,7 +33,7 @@ public class Radish : MonoBehaviour
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
-        radishHeight = sprite.size.y;
+        radishHeight = sprite.sprite.pivot.y * 0.01f;
         radishMaxHp = radishNowHp;
     }
 
@@ -50,23 +50,26 @@ public class Radish : MonoBehaviour
 
     public bool PullQteSuccess()
     {
+        radishNowHp--;
         if (radishNowHp > 0)
         {
-            nowState--;
-            transform.DOMoveY(radishHeight * radishNowHp / radishMaxHp, pullOutTime).SetEase(Ease.Linear);
+            transform.DOLocalMoveY(radishHeight / radishMaxHp * (radishMaxHp - radishNowHp), pullOutTime).SetEase(Ease.Linear);
             return false;
         }
         else
         {
             nowState = RadishState.Complete;
-            transform.DOMoveY(flyOutDistance, flyOutTime).SetEase(Ease.Linear).OnComplete(() => {
+            transform.DOLocalMoveY(flyOutDistance, flyOutTime).SetEase(Ease.Linear).OnComplete(() => {
                 sprite.DOFade(0, flyOutTime).SetEase(Ease.Linear).OnComplete(() => {
                     DestroyImmediate(gameObject);
-                    }); 
+                });
             });
             return true;
+
         }
+        
     }
+
     public void PullQteFail()
     {
         nowState = RadishState.Idle;
