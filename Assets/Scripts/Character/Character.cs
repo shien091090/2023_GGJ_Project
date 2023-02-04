@@ -139,15 +139,20 @@ public class Character : PlayerBase
     {
         if (isQteSuccess && HaveCollidingRadish)
         {
-            if (!collisionRadish.GetIsComplete()) PullRadish();
-            else
+            collisionRadish.PullQteSuccess();
+            if (collisionRadish.GetIsComplete())
             {
                 isPlayingQte = false;
                 //TODO : 加分
             }
+            else
+                qte.StartQte(ReceiveQteResult);
         }
         else
+        {
+            collisionRadish.PullQteFail();
             isPlayingQte = false;
+        }
     }
 
     private void EnterCollideCharacter(Collision2D col)
