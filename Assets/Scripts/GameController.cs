@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour
     
     //場上蘿蔔
     public int maxRadish;
+    public int countRadish;
     
     //遊戲開始
     public bool gameStart;
@@ -51,8 +52,8 @@ public class GameController : MonoBehaviour
         nowTxt_P2.text = int_P2.ToString();
         if (gameStart == true)
         {
-            int i = int_P1 + int_P2;
-            if (i==maxRadish)
+          
+            if (countRadish==maxRadish)
               {
                 StopCoroutine("CountDown");
                 End();
@@ -93,7 +94,7 @@ public class GameController : MonoBehaviour
     }
     
     //誰得分數
-    public void RadishFraction(string who,int fraction)
+    public void RadishFraction(PlayerType who,int fraction)
     {
         if (m_Seconds < fractionDoudleSecond)
         {
@@ -101,12 +102,16 @@ public class GameController : MonoBehaviour
         }
         switch (who)
         {
-            case "P1":
+            case PlayerType.Player1:
+                countRadish++;
                 int_P1 += fraction;
                 break;
-            case "P2":
+            case PlayerType.Player2:
+                countRadish++;
                 int_P2 += fraction;
                 break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(who), who, null);
         }
     }
     
