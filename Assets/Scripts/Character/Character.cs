@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Character : PlayerBase
@@ -11,6 +12,8 @@ public class Character : PlayerBase
     [SerializeField] private float currentJumpSpeed;
     [SerializeField] private bool isJumping;
     [SerializeField] private bool canJump;
+    [SerializeField] private bool isPlayingQte;
+    [SerializeField] private Radish collisionRadish;
     public CharacterSetting characterSetting;
     public CharacterKeySetting characterKeySetting;
     public QTE qte;
@@ -20,11 +23,20 @@ public class Character : PlayerBase
 
     private Rigidbody2D GetRigidBody => GetComponent<Rigidbody2D>();
 
+    private bool HaveCollidingRadish => collisionRadish;
+
     private void FixedUpdate()
     {
+        if (isPlayingQte)
+        {
+            return;
+        }
+
         int moveDirection = GetInputMoveDirection() * _buff_Direction;
         float horizontalMoveSpeed = GetHorizontalMoveSpeed(moveDirection) * _buff_MoveSpeed;
         float verticalMoveSpeed = GetVerticalMoveSpeed();
+
+        if (HaveCollidingRadish && Input.GetKeyDown(characterKeySetting.actKey)) CheckToPullRadish();
 
         GetRigidBody.velocity = new Vector2(horizontalMoveSpeed * Time.fixedDeltaTime, verticalMoveSpeed);
     }
@@ -35,14 +47,24 @@ public class Character : PlayerBase
             EnterCollidePlatform();
         if (IsCollideOn(col, LAYER_CHARACTER))
             EnterCollideCharacter(col);
-        if (IsCollideOn(col, LAYER_RADISH))
-            EnterCollideRadish(col);
     }
 
     private void OnCollisionExit2D(Collision2D col)
     {
         if (IsCollideOn(col, LAYER_PLATFORM))
             ExitCollidePlatform();
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (IsTriggerOn(col, LAYER_RADISH))
+            EnterTriggerRadish(col);
+    }
+
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        if (IsTriggerOn(col, LAYER_RADISH))
+            ExitTriggerRadish();
     }
 
     public override PlayerType GetPlayerType()
@@ -74,8 +96,44 @@ public class Character : PlayerBase
         canJump = true;
     }
 
-    private void EnterCollideRadish(Collision2D col)
+    private void EnterTriggerRadish(Collider2D col)
     {
+        TryGetCollisionTarget(col, out collisionRadish);
+    }
+
+    private void ExitTriggerRadish()
+    {
+        if (isPlayingQte)
+        {
+            qte.QteUnexceptedStop();
+            isPlayingQte = false;
+        }
+
+        if (HaveCollidingRadish)
+            collisionRadish = null;
+    }
+
+    private void CheckToPullRadish()
+    {
+        if (!collisionRadish.StartPull()) return;
+
+        qte.StartQte(ReceiveQteResult);
+        isPlayingQte = true;
+    }
+
+    private void ReceiveQteResult(bool isQteSuccess)
+    {
+        if (isQteSuccess && HaveCollidingRadish)
+        {
+            if (collisionRadish.StartPull()) CheckToPullRadish();
+            else
+            {
+                isPlayingQte = false;
+                //TODO : 加分
+            }
+        }
+        else
+            isPlayingQte = false;
     }
 
     private void EnterCollideCharacter(Collision2D col)
@@ -83,11 +141,17 @@ public class Character : PlayerBase
         ContactPoint2D[] contactPoints = col.contacts;
         ContactPoint2D contactPoint = contactPoints[0];
 
-        if (HaveCollisionTarget(col, out Character collisionCharacter))
+        if (TryGetCollisionTarget(col, out Character collisionCharacter))
             collisionCharacter.BeStroked(moveSpeed, contactPoint);
     }
 
-    private bool HaveCollisionTarget<T>(Collision2D col, out T target) where T : MonoBehaviour
+    private bool TryGetCollisionTarget<T>(Collision2D col, out T target) where T : MonoBehaviour
+    {
+        target = col.gameObject.GetComponent<T>();
+        return target != null;
+    }
+
+    private bool TryGetCollisionTarget<T>(Collider2D col, out T target) where T : MonoBehaviour
     {
         target = col.gameObject.GetComponent<T>();
         return target != null;
@@ -109,6 +173,12 @@ public class Character : PlayerBase
     private bool IsCollideOn(Collision2D col, int collisionTargetLayer)
     {
         bool isCollidePlatform = col.gameObject.layer == collisionTargetLayer;
+        return isCollidePlatform;
+    }
+
+    private bool IsTriggerOn(Collider2D col, int triggerTargetLayer)
+    {
+        bool isCollidePlatform = col.gameObject.layer == triggerTargetLayer;
         return isCollidePlatform;
     }
 
