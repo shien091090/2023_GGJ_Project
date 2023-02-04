@@ -34,7 +34,10 @@ public class Character : PlayerBase
         HorizontalMove();
         // float verticalMoveSpeed = GetVerticalMoveSpeed();
 
-        if (HaveCollidingRadish && Input.GetKeyDown(characterKeySetting.actKey)) CheckToPullRadish();
+        if (HaveCollidingRadish &&
+            Input.GetKeyDown(characterKeySetting.actKey) &&
+            collisionRadish.GetIsBusy() == false)
+            PullRadish();
     }
 
     private void HorizontalMove()
@@ -117,10 +120,9 @@ public class Character : PlayerBase
             collisionRadish = null;
     }
 
-    private void CheckToPullRadish()
+    private void PullRadish()
     {
-        if (!collisionRadish.StartPull()) return;
-
+        collisionRadish.StartPull();
         qte.StartQte(ReceiveQteResult);
         isPlayingQte = true;
     }
@@ -129,7 +131,7 @@ public class Character : PlayerBase
     {
         if (isQteSuccess && HaveCollidingRadish)
         {
-            if (collisionRadish.StartPull()) CheckToPullRadish();
+            if (!collisionRadish.GetIsCompelete()) PullRadish();
             else
             {
                 isPlayingQte = false;
