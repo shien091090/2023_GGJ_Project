@@ -95,7 +95,7 @@ public class QTE : MonoBehaviour
 
     private void Update()
     {
-        if (isPlaying && Input.GetKeyDown(keySetting.actKey))
+        if (isPlaying && Input.GetKeyUp(keySetting.qteKey))
             TrigQte();     
     }
 }

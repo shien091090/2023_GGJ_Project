@@ -16,3 +16,4 @@ MonoBehaviour:
   moveRightKey: 275
   moveUpKey: 273
   actKey: 274
+  qteKey: 32
