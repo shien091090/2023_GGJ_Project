@@ -6,7 +6,7 @@ public class Character : PlayerBase
     private const int LAYER_RADISH = 8;
     private const int LAYER_CHARACTER = 11;
     private const int LAYER_ITEM = 12;
-    private const int LAYER_PLATFORM = 14;
+    private const int LAYER_PLANE_SURFACE = 16;
     [SerializeField] private PlayerType _playerType;
     [SerializeField] private float moveSpeed;
     [SerializeField] private bool isOnFloor;
@@ -32,25 +32,18 @@ public class Character : PlayerBase
         if (isPlayingQte)
             return;
 
+        HorizontalMove();
+        CheckToJump();
+
         if (HaveCollidingRadish &&
             Input.GetKeyDown(characterKeySetting.actKey) &&
             collisionRadish.GetIsBusy() == false)
             PullRadish();
-        HorizontalMove();
-        // float verticalMoveSpeed = GetVerticalMoveSpeed();
-
-    }
-
-    private void HorizontalMove()
-    {
-        int moveDirection = GetInputMoveDirection() * _buff_Direction;
-        float horizontalMoveSpeed = GetHorizontalMoveSpeed(moveDirection) * _buff_MoveSpeed;
-        GetRigidBody.velocity += new Vector2(horizontalMoveSpeed * Time.fixedDeltaTime, 0);
     }
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if (IsCollideOn(col, LAYER_PLATFORM))
+        if (IsCollideOn(col, LAYER_PLANE_SURFACE))
             EnterCollidePlatform();
         if (IsCollideOn(col, LAYER_CHARACTER))
             EnterCollideCharacter(col);
@@ -58,7 +51,7 @@ public class Character : PlayerBase
 
     private void OnCollisionExit2D(Collision2D col)
     {
-        if (IsCollideOn(col, LAYER_PLATFORM))
+        if (IsCollideOn(col, LAYER_PLANE_SURFACE))
             ExitCollidePlatform();
     }
 
@@ -79,6 +72,42 @@ public class Character : PlayerBase
     {
         if (IsTriggerOn(col, LAYER_RADISH))
             ExitTriggerRadish();
+    }
+
+    private void CheckToJump()
+    {
+        if (IsPressingJumpKey())
+        {
+            if (canJump) Jump();
+        }
+        else
+        {
+            if (isJumping)
+                canJump = false;
+        }
+    }
+
+    private void Jump()
+    {
+        isJumping = true;
+        if (isOnFloor == false) currentJumpSpeed = Mathf.Max(currentJumpSpeed - characterSetting.jumpForceConsume, 0);
+
+        Debug.Log($"verticalMoveSpeed = {currentJumpSpeed}");
+
+        if (currentJumpSpeed > 0)
+            GetRigidBody.AddForce(Vector2.up * currentJumpSpeed);
+    }
+
+    private bool IsPressingJumpKey()
+    {
+        return Input.GetKey(characterKeySetting.moveUpKey);
+    }
+
+    private void HorizontalMove()
+    {
+        int moveDirection = GetInputMoveDirection() * _buff_Direction;
+        float horizontalMoveSpeed = GetHorizontalMoveSpeed(moveDirection) * _buff_MoveSpeed;
+        GetRigidBody.velocity += new Vector2(horizontalMoveSpeed * Time.fixedDeltaTime, 0);
     }
 
     public override PlayerType GetPlayerType()
