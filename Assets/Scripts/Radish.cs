@@ -51,13 +51,20 @@ public class Radish : MonoBehaviour
         nowState = RadishState.Busy;
     }
 
-    public bool PullQteSuccess()
+    public bool GetIsCompelete()
+    {
+        if (nowState == RadishState.Complete)
+            return true;
+        else
+            return false;
+    }
+
+    public void PullQteSuccess()
     {
         radishNowHp--;
         if (radishNowHp > 0)
         {
             transform.DOLocalMoveY(radishHeight / radishMaxHp * (radishMaxHp - radishNowHp), pullOutTime).SetEase(Ease.Linear);
-            return false;
         }
         else
         {
@@ -67,8 +74,6 @@ public class Radish : MonoBehaviour
                     DestroyImmediate(gameObject);
                 });
             });
-            return true;
-
         }
         
     }
