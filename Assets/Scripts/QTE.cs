@@ -12,6 +12,7 @@ public class QTE : MonoBehaviour
     [SerializeField]
     private Image hitBox;
 
+    private bool isPlaying;
     private float hitBoxStart;
     private float hitBoxEnd;
 
@@ -35,6 +36,7 @@ public class QTE : MonoBehaviour
 
     public void StartQte(Action<bool> _callBack)
     {
+        isPlaying = true;
         SetHitBox();
         PlayHitter();
         callback = _callBack;
@@ -77,6 +79,7 @@ public class QTE : MonoBehaviour
         callback(true);
         hitter.gameObject.SetActive(false);
         hitter.transform.rotation = Quaternion.Euler(0, 0, 0);
+        isPlaying = false;
     }
 
     private void QteFail()
@@ -87,23 +90,12 @@ public class QTE : MonoBehaviour
             hitter.gameObject.SetActive(false);
             hitter.transform.rotation = Quaternion.Euler(0, 0, 0);
         });
+        isPlaying = false;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(keySetting.actKey))
-            TrigQte();
-
-        //if (!rigid.IsTouchingLayers(15) || !rigid.IsTouchingLayers(14))
-        //{
-        //    if (Mathf.Abs(rigid.velocity.x) > 0)
-        //    {
-        //        rigid.velocity = new Vector2(rigid.velocity.x - 0.1f, rigid.velocity.y);
-        //    }
-        //    if (Mathf.Abs(rigid.velocity.y) > 0)
-        //    {
-        //        rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y - 0.1f);
-        //    }
-        //}        
+        if (isPlaying && Input.GetKeyDown(keySetting.actKey))
+            TrigQte();     
     }
 }
