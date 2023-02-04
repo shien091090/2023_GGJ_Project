@@ -15,6 +15,6 @@ public class ItemSpeed : ItemBase
 
     protected override void EndBuff()
     {
-        _playerBase.SetBuff(ItemType , 1);
+        _playerBase.SetBuff(ItemType , 1f);
     }
 }
