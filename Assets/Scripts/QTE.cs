@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System;
 
 public class QTE : MonoBehaviour
 {
@@ -18,26 +19,26 @@ public class QTE : MonoBehaviour
 
     [SerializeField]
     private QteInfo info;
-    public void StartQte()
+
+    [SerializeField]
+    private CharacterKeySetting keySetting;
+
+    private Action<bool> callback;
+    public void StartQte(Action<bool> _callBack)
     {
         SetHitBox();
         PlayHitter();
+        callback = _callBack;
     }
 
-    public bool TrigQte()
+    public void TrigQte()
     {
         hitterRotate.Kill();
         var rotation = hitter.transform.rotation.eulerAngles.z;
         if (hitBoxEnd >= rotation && rotation >= hitBoxStart)
-        {   
             DOVirtual.DelayedCall(info.hitterSuccessDelayTime, QteSuccess);
-            return true;
-        }
         else
-        {
             QteFail();
-            return false;
-        }
     }
 
     public void QteUnexceptedStop()
@@ -47,8 +48,8 @@ public class QTE : MonoBehaviour
 
     private void SetHitBox()
     {
-        hitBox.fillAmount = Random.Range(info.hitBoxMinRange, info.hitBoxMaxRnage);
-        var rotate = Random.Range(hitBox.fillAmount, 1 - info.hitBoxRotateMin) * QteInfo.FULL_ANGLE;
+        hitBox.fillAmount = UnityEngine.Random.Range(info.hitBoxMinRange, info.hitBoxMaxRnage);
+        var rotate = UnityEngine.Random.Range(hitBox.fillAmount, 1 - info.hitBoxRotateMin) * QteInfo.FULL_ANGLE;
         hitBox.rectTransform.localRotation = Quaternion.Euler(new Vector3(0, 0, rotate));
         hitBoxStart = rotate - hitBox.fillAmount * QteInfo.FULL_ANGLE;
         hitBoxEnd = rotate;
@@ -64,12 +65,14 @@ public class QTE : MonoBehaviour
     }
     private void QteSuccess()
     {
+        callback(true);
         hitter.gameObject.SetActive(false);
         hitter.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     private void QteFail()
     {
+        callback(false);
         hitBox.transform.DOShakePosition(info.failShakeTime, info.failShakeStrength);
         hitter.transform.DOShakePosition(info.failShakeTime, info.failShakeStrength).OnComplete(()=> {
             hitter.gameObject.SetActive(false);
@@ -79,9 +82,7 @@ public class QTE : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F1))
-            StartQte();
-        if (Input.GetKeyDown(KeyCode.F2))
+        if (Input.GetKeyDown(keySetting.actKey))
             TrigQte();
     }
 }
