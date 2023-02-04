@@ -9,6 +9,9 @@ public abstract class ItemBase : MonoBehaviour
     private SpriteRenderer _sr = null;
 
     [SerializeField]
+    private Collider2D _collider2D = null;
+
+    [SerializeField]
     protected float _buffTime = 0;
 
     [SerializeField]
@@ -40,6 +43,9 @@ public abstract class ItemBase : MonoBehaviour
 
     public void TriggerBuff(PlayerBase playerBase)
     {
+        _collider2D.enabled = false;
+        _sr.enabled = false;
+
         _playerBase = playerBase;
         _elpasedTime = 0;
         _isBuffTrigger = true;

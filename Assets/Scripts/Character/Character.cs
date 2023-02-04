@@ -5,6 +5,7 @@ public class Character : PlayerBase
 {
     private const int LAYER_RADISH = 8;
     private const int LAYER_CHARACTER = 11;
+    private const int LAYER_ITEM = 12;
     private const int LAYER_PLATFORM = 14;
     [SerializeField] private PlayerType _playerType;
     [SerializeField] private float moveSpeed;
@@ -65,6 +66,16 @@ public class Character : PlayerBase
     {
         if (IsTriggerOn(col, LAYER_RADISH))
             EnterTriggerRadish(col);
+
+        if (IsTriggerOn(col, LAYER_ITEM))
+        {
+            //var itemBase = col.gameObject.GetComponent<ItemBase>();
+            //if (itemBase != null)
+            //{
+            //    Debug.LogWarning($"Isaac  {itemBase == null}  {col.gameObject.name}");
+            //    ItemManager.Instance.OnCollider_Item(this , itemBase);
+            //}
+        }
     }
 
     private void OnTriggerExit2D(Collider2D col)
