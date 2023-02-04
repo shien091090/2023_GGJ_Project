@@ -18,9 +18,6 @@ public class QTE : MonoBehaviour
 
     [SerializeField]
     private QteInfo info;
-
-    [SerializeField]
-    private CharacterKeySetting keySetting;
     public void StartQte()
     {
         SetHitBox();
@@ -30,8 +27,7 @@ public class QTE : MonoBehaviour
     public bool TrigQte()
     {
         hitterRotate.Kill();
-        var rotation = QteInfo.FULL_ANGLE - hitter.transform.rotation.z;
-        Debug.Log(rotation);
+        var rotation = hitter.transform.rotation.eulerAngles.z;
         if (hitBoxEnd >= rotation && rotation >= hitBoxStart)
         {   
             DOVirtual.DelayedCall(info.hitterSuccessDelayTime, QteSuccess);
@@ -83,9 +79,9 @@ public class QTE : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.F1))
             StartQte();
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.F2))
             TrigQte();
     }
 }
