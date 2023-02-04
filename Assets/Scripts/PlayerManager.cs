@@ -4,15 +4,13 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instacne { get; private set; }
-
-    [CanBeNull]
+    
     [SerializeField]
-    private IPlayer player1 = null;
+    private PlayerBase player1 = null;
     
     
-    [CanBeNull]
     [SerializeField]
-    private IPlayer player2 = null;
+    private PlayerBase player2 = null;
 
     private void Awake()
     {
@@ -20,7 +18,7 @@ public class PlayerManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public IPlayer GetAnotherPlayer(PlayerType playerType)
+    public PlayerBase GetAnotherPlayer(PlayerType playerType)
     {
         if (playerType == PlayerType.Player1)
             return player2;

@@ -4,11 +4,11 @@ public class ItemControl : ItemBase
 
     protected override void StartBuff()
     {
-        _player.SetBuff(ItemType , 1);
+        _playerBase.SetBuff(ItemType , 1);
     }
 
     protected override void EndBuff()
     {
-        _player.SetBuff(ItemType , -1);
+        _playerBase.SetBuff(ItemType , -1);
     }
 }

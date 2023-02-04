@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Character : MonoBehaviour, IPlayer
+public class Character : PlayerBase
 {
     private const int LAYER_PLATFORM = 9;
     [SerializeField] private PlayerType _playerType;
@@ -49,12 +49,12 @@ public class Character : MonoBehaviour, IPlayer
         }
     }
 
-    public PlayerType GetPlayerType()
+    public override PlayerType GetPlayerType()
     {
         return _playerType;
     }
 
-    public void SetBuff(ItemType itemType , object data)
+    public override void SetBuff(ItemType itemType , object data)
     {
         if (data == null)
             return;

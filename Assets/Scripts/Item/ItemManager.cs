@@ -94,13 +94,13 @@ public class ItemManager : MonoBehaviour
             _waiteRemoveItemBases.Add(itemBase);
     }
 
-    public void OnCollider_Item(IPlayer player , ItemBase itemBase)
+    public void OnCollider_Item(PlayerBase playerBase , ItemBase itemBase)
     {
         if (itemBase.GetTriggerType == TriggerTarget.Self)
-            itemBase.TriggerBuff(player);
+            itemBase.TriggerBuff(playerBase);
         else
         {
-            var anotherPlayer = PlayerManager.Instacne.GetAnotherPlayer(player.GetPlayerType());
+            var anotherPlayer = PlayerManager.Instacne.GetAnotherPlayer(playerBase.GetPlayerType());
             itemBase.TriggerBuff(anotherPlayer);
         }
     }

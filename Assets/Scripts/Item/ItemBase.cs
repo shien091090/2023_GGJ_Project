@@ -20,7 +20,7 @@ public abstract class ItemBase : MonoBehaviour
 
     public abstract ItemType ItemType { get; protected set; }
 
-    protected IPlayer _player = null;
+    protected PlayerBase _playerBase = null;
     private Action<ItemBase> _releaseItem = null;
 
     public TriggerTarget GetTriggerType => _triggerTarget;
@@ -33,9 +33,9 @@ public abstract class ItemBase : MonoBehaviour
         _isBuffTrigger = false;
     }
 
-    public void TriggerBuff(IPlayer player)
+    public void TriggerBuff(PlayerBase playerBase)
     {
-        _player = player;
+        _playerBase = playerBase;
         _elpasedTime = 0;
         _isBuffTrigger = true;
 
