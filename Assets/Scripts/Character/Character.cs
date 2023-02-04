@@ -16,6 +16,7 @@ public class Character : PlayerBase
     [SerializeField] private bool isPlayingQte;
     [SerializeField] private Radish collisionRadish;
     [SerializeField] private float moveTimer;
+    public Transform footPoint;
     public CharacterSetting characterSetting;
     public CharacterKeySetting characterKeySetting;
     public QTE qte;
@@ -27,11 +28,12 @@ public class Character : PlayerBase
 
     private bool HaveCollidingRadish => collisionRadish;
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (isPlayingQte)
             return;
 
+        CheckOnFloor();
         HorizontalMove();
         CheckToJump();
 
@@ -64,7 +66,7 @@ public class Character : PlayerBase
         {
             var itemBase = col.gameObject.GetComponent<ItemBase>();
             if (itemBase != null)
-                ItemManager.Instance.OnCollider_Item(this , itemBase);
+                ItemManager.Instance.OnCollider_Item(this, itemBase);
         }
     }
 
@@ -74,9 +76,27 @@ public class Character : PlayerBase
             ExitTriggerRadish();
     }
 
+    private void CheckOnFloor()
+    {
+        isOnFloor = Physics2D.OverlapCircle(footPoint.position, characterSetting.footRadius, LayerMask.GetMask("Platform"));
+        if (isOnFloor)
+        {
+            if (isJumping)
+                isJumping = false;
+
+            currentJumpSpeed = characterSetting.jumpForce;
+            canJump = true;
+        }
+        else
+        {
+            if (isJumping == false)
+                canJump = false;
+        }
+    }
+
     private void CheckToJump()
     {
-        if (IsPressingJumpKey())
+        if (Input.GetKey(characterKeySetting.jumpKey))
         {
             if (canJump) Jump();
         }
@@ -92,22 +112,15 @@ public class Character : PlayerBase
         isJumping = true;
         if (isOnFloor == false) currentJumpSpeed = Mathf.Max(currentJumpSpeed - characterSetting.jumpForceConsume, 0);
 
-        Debug.Log($"verticalMoveSpeed = {currentJumpSpeed}");
-
         if (currentJumpSpeed > 0)
             GetRigidBody.AddForce(Vector2.up * currentJumpSpeed);
-    }
-
-    private bool IsPressingJumpKey()
-    {
-        return Input.GetKey(characterKeySetting.moveUpKey);
     }
 
     private void HorizontalMove()
     {
         int moveDirection = GetInputMoveDirection() * _buff_Direction;
         float horizontalMoveSpeed = GetHorizontalMoveSpeed(moveDirection) * _buff_MoveSpeed;
-        GetRigidBody.velocity += new Vector2(horizontalMoveSpeed * Time.fixedDeltaTime, 0);
+        transform.Translate(Vector3.right * Time.deltaTime * horizontalMoveSpeed);
     }
 
     public override PlayerType GetPlayerType()
@@ -133,10 +146,9 @@ public class Character : PlayerBase
 
     private void EnterCollidePlatform()
     {
-        currentJumpSpeed = characterSetting.jumpForce;
-        isOnFloor = true;
-        isJumping = false;
-        canJump = true;
+        // currentJumpSpeed = characterSetting.jumpForce;
+        // isJumping = false;
+        // canJump = true;
     }
 
     private void EnterTriggerRadish(Collider2D col)
@@ -207,15 +219,16 @@ public class Character : PlayerBase
 
     private void ExitCollidePlatform()
     {
-        isOnFloor = false;
-        if (isJumping == false)
-            canJump = false;
+        // isOnFloor = false;
+        // if (isJumping == false)
+        //     canJump = false;
     }
 
     private void BeStroked(float targetMoveSpeed, ContactPoint2D contactPoint)
     {
-        Vector2 strikeVector = new Vector2(contactPoint.normal.x * targetMoveSpeed * 0.1f, characterSetting.strikeRiseForce);
-        Debug.Log($"{gameObject.name} BeStroked, normal = {contactPoint.normal}, targetMoveSpeed = {targetMoveSpeed}, strikeVector = {strikeVector}");
+        Vector2 strikeVector = new Vector2(-contactPoint.normal.x * characterSetting.horizontalStrikeCurve.Evaluate(Mathf.Abs(targetMoveSpeed)),
+            characterSetting.verticalStrikeCurve.Evaluate(Mathf.Abs(targetMoveSpeed)));
+        GetRigidBody.AddForce(strikeVector, ForceMode2D.Impulse);
     }
 
     private bool IsCollideOn(Collision2D col, int collisionTargetLayer)
@@ -233,11 +246,11 @@ public class Character : PlayerBase
     private float GetVerticalMoveSpeed()
     {
         float verticalMoveSpeed = 0;
-        if (Input.GetKey(characterKeySetting.moveUpKey))
+        if (Input.GetKey(characterKeySetting.jumpKey))
         {
             if (canJump)
             {
-                verticalMoveSpeed = currentJumpSpeed * Time.fixedDeltaTime;
+                verticalMoveSpeed = currentJumpSpeed * Time.deltaTime;
                 isJumping = true;
                 if (isOnFloor == false) currentJumpSpeed = Mathf.Max(currentJumpSpeed - characterSetting.jumpForceConsume, 0);
             }
@@ -260,22 +273,22 @@ public class Character : PlayerBase
         {
             case 1:
                 moveSpeed = characterSetting.moveSpeedCurve.Evaluate(moveTimer);
-                moveTimer += Time.fixedDeltaTime;
+                moveTimer += Time.deltaTime;
                 break;
             case -1:
                 moveSpeed = -characterSetting.moveSpeedCurve.Evaluate(moveTimer);
-                moveTimer += Time.fixedDeltaTime;
+                moveTimer += Time.deltaTime;
                 break;
             case 0:
             {
                 moveTimer = 0;
 
-                if (GetRigidBody.velocity.x > 0)
-                    moveSpeed -= characterSetting.breakAcceleration;
-                else if (GetRigidBody.velocity.x < 0)
-                    moveSpeed += characterSetting.breakAcceleration;
-                else if (GetRigidBody.velocity.x > -0.1f && GetRigidBody.velocity.x < 0.1f)
+                if (moveSpeed > -0.1f && moveSpeed < 0.1f)
                     moveSpeed = 0;
+                else if (moveSpeed > 0)
+                    moveSpeed -= characterSetting.breakAcceleration * Time.deltaTime;
+                else if (moveSpeed < 0)
+                    moveSpeed += characterSetting.breakAcceleration * Time.deltaTime;
                 break;
             }
         }

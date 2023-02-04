@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveLeftKey: 276
   moveRightKey: 275
-  moveUpKey: 273
+  jumpKey: 273
   actKey: 274
   qteKey: 32
