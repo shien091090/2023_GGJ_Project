@@ -29,6 +29,12 @@ public class Radish : MonoBehaviour
     private int radishNowHp;
     private int radishMaxHp;
 
+    [SerializeField]
+    private Animator animator;
+
+    [SerializeField]
+    private string animName;
+
 
     private void Awake()
     {
@@ -69,7 +75,7 @@ public class Radish : MonoBehaviour
         else
         {
             nowState = RadishState.Complete;
-            transform.DOLocalMoveY(flyOutDistance, flyOutTime).SetEase(Ease.Linear).OnComplete(() => {
+            transform.DOLocalMoveY(transform.localPosition.y + 1f, flyOutTime).OnComplete(() => {
                 sprite.DOFade(0, flyOutTime).SetEase(Ease.Linear).OnComplete(() => {
                     DestroyImmediate(gameObject);
                 });
