@@ -119,4 +119,4 @@ MonoBehaviour:
   _collider2D: {fileID: 4085956997584969065}
   _buffTime: 3
   _disappearTime: 3
-  _changeMulSpeed: 0.8
+  _changeMulSpeed: 0.5

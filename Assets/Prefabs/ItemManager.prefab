@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemParent_tran: {fileID: 519760111969326105}
   _isRandomCreateItem: 1
-  _randomCreateItemTime: 5
+  _randomCreateItemTime: 3
   _itemBasePrefabs:
   - {fileID: 1898540229362911623, guid: 3ab8e645fab9ec64cbebb22480693982, type: 3}
   - {fileID: 3985295192338138168, guid: 2b31317abfab2e94daa203b158207a98, type: 3}
