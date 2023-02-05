@@ -33,18 +33,31 @@ public class GameController : MonoBehaviour
     //結算圖及文字
     public Text howWin;
     
+     //開始畫面
+     public GameObject startmenu;
+     //遊戲畫面
+     public GameObject game;
     //結束畫面
     public GameObject end;
+    
+   
 
     public void Start()
     {
         my_audio = GetComponent<AudioSource>();
-        gameStart = true;
+        startmenu.SetActive(true);
+        game.SetActive(false);
         end.SetActive(false);
+    }
+
+    public void click()
+    {
+        gameStart = true; 
+        startmenu.SetActive(false);
+        game.SetActive(true);
         StartCoroutine("CountDown");
         
     }
-    
     
     public void Update()
     {
