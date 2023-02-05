@@ -10,7 +10,13 @@ public class ItemTip : MonoBehaviour
     private int _showCount = 3;
 
     [SerializeField]
+    private float _shinDurTime = 0.2f;
+
+    [SerializeField]
     private SpriteRenderer _sr;
+
+    [SerializeField]
+    private GameObject _particle_obj = null;
 
     [SerializeField]
     private Color _defaultColor = Color.white;
@@ -24,11 +30,19 @@ public class ItemTip : MonoBehaviour
     {
         _sr.color = _defaultColor;
 
-        _sr.DOColor(_targetColor, 0.2f).SetLoops(_showCount, LoopType.Yoyo).OnComplete(() =>
+        var sequence = DOTween.Sequence();
+        sequence.Append(_sr.DOColor(_targetColor, _shinDurTime).SetLoops(_showCount, LoopType.Yoyo));
+        //sequence.AppendInterval(_shinDurTime * _showCount);
+        sequence.AppendCallback(() =>
+        {
+            _particle_obj.SetActive(true);
+            _sr.enabled = false;
+        });
+        sequence.AppendInterval(0.2f);
+        sequence.OnComplete(() =>
         {
             callback?.Invoke();
-
             DestroyImmediate(gameObject);
-        }).Play();
+        });
     }
 }

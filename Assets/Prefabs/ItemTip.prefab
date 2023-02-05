@@ -47,7 +47,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _showCount: 3
+  _shinDurTime: 0.2
   _sr: {fileID: 599175034090851819}
+  _particle_obj: {fileID: 6592631460653073844}
   _defaultColor: {r: 1, g: 0, b: 0, a: 1}
   _targetColor: {r: 1, g: 0, b: 0, a: 0}
 --- !u!212 &599175034090851819
@@ -161,6 +163,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Particle_Item
       objectReference: {fileID: 0}
+    - target: {fileID: 7061306073487902045, guid: bfbca3f2b90ec514bb1c7dc8eb691a5e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8452352532442823286, guid: bfbca3f2b90ec514bb1c7dc8eb691a5e, type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 16
@@ -170,5 +176,10 @@ PrefabInstance:
 --- !u!4 &991736732441666261 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3981230834649719356, guid: bfbca3f2b90ec514bb1c7dc8eb691a5e, type: 3}
+  m_PrefabInstance: {fileID: 4216344606008443113}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6592631460653073844 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7061306073487902045, guid: bfbca3f2b90ec514bb1c7dc8eb691a5e, type: 3}
   m_PrefabInstance: {fileID: 4216344606008443113}
   m_PrefabAsset: {fileID: 0}
