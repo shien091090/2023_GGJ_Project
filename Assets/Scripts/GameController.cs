@@ -24,11 +24,14 @@ public class GameController : MonoBehaviour
     
     //玩家分數
     public Text nowTxt_P1, nowTxt_P2;
-    public Text txt_P1, txt_P2;
     public int int_P1, int_P2;
     
     //結算圖及文字
-    public Text howWin;
+    public Image image_whoWin;
+    public Text txt_whoWin;
+    public Sprite P1_win;
+    public Sprite P2_win;
+    public Sprite tie;
     
      //開始畫面
      public GameObject startmenu;
@@ -153,8 +156,6 @@ public class GameController : MonoBehaviour
         AudioManagerScript.Instance.Stop(0);
         AudioManagerScript.Instance.PlayAudioClip("End");
         WinGame();
-        txt_P1.text = int_P1.ToString();
-        txt_P2.text = int_P2.ToString();
         end.SetActive(true);
     }
     
@@ -163,15 +164,18 @@ public class GameController : MonoBehaviour
     {
         if (int_P1 > int_P2)
         {
-            howWin.text = "P1 WIN!!!!";
-         }
+            image_whoWin.sprite = P1_win;
+            txt_whoWin.text = int_P1.ToString();
+        }
         else if(int_P2>int_P1)
         {
-            howWin.text = "P2 WIN!!!!";
+            image_whoWin.sprite = P2_win;
+            txt_whoWin.text = int_P2.ToString();
         }
         else
         {
-            howWin.text = "Tie";
+            image_whoWin.sprite = tie;
+            txt_whoWin.text = int_P1.ToString();
         }
         
     }
