@@ -183,10 +183,17 @@ MonoBehaviour:
     tag: []
     volumeScale: 1
     overlappingMode: 0
-    outputSourceNum: 0
+    outputSourceNum: 1
+  - name: pull_radish_success
+    clips:
+    - {fileID: 8300000, guid: b7a426e65bef4a942bc00675fd91b687, type: 3}
+    tag: []
+    volumeScale: 1
+    overlappingMode: 0
+    outputSourceNum: 1
   audioSourcesPack:
   - name: BGM
-    source: {fileID: 0}
+    source: {fileID: 1246902133195910632}
     sourceNum: 0
     tag: []
     fadeInEffectMode: 1
@@ -196,6 +203,17 @@ MonoBehaviour:
     iniParam_becomeLowerRate: 0
     duration_fadeIn: 0.8
     duration_fadeOut: 0.8
+  - name: SE
+    source: {fileID: 1552980691493638049}
+    sourceNum: 1
+    tag: []
+    fadeInEffectMode: 0
+    fadeOutEffectMode: 0
+    outputMethod: 1
+    iniParam_becomeFastRate: 0
+    iniParam_becomeLowerRate: 0
+    duration_fadeIn: 0
+    duration_fadeOut: 0
 --- !u!114 &3015886057100000275
 MonoBehaviour:
   m_ObjectHideFlags: 0
