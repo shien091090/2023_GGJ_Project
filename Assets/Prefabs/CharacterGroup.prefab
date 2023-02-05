@@ -194,6 +194,7 @@ MonoBehaviour:
   footPoint: {fileID: 5161338586080167701}
   characterSetting: {fileID: 11400000, guid: 7e08091a9eaf8cf4e99a1da4ff8aaa40, type: 2}
   characterKeySetting: {fileID: 11400000, guid: 9ebc9e3d08e8c5046a4008773821c2b3, type: 2}
+  gameController: {fileID: 0}
   qte: {fileID: 4429696446606941300}
   animator: {fileID: 4713788523048614793}
   playerAnimaInfo: {fileID: 11400000, guid: 094fb4182adda2b4b8303060beddc045, type: 2}
@@ -414,6 +415,7 @@ MonoBehaviour:
   footPoint: {fileID: 2370544310233591085}
   characterSetting: {fileID: 11400000, guid: 7e08091a9eaf8cf4e99a1da4ff8aaa40, type: 2}
   characterKeySetting: {fileID: 11400000, guid: 4944fcbd4f5746b4d82d3beed9aec60d, type: 2}
+  gameController: {fileID: 0}
   qte: {fileID: 6859086082722207223}
   animator: {fileID: 9083716349374084641}
   playerAnimaInfo: {fileID: 11400000, guid: 094fb4182adda2b4b8303060beddc045, type: 2}
@@ -621,6 +623,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: QTE_P2
       objectReference: {fileID: 0}
+    - target: {fileID: 8776409625373633869, guid: 884ca2bd37bccf54fa1b30de93cb5700, type: 3}
+      propertyPath: m_Mass
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 8776409625373633871, guid: 884ca2bd37bccf54fa1b30de93cb5700, type: 3}
       propertyPath: keySetting
       value: 
@@ -705,6 +711,10 @@ PrefabInstance:
     - target: {fileID: 8776409625373633868, guid: 884ca2bd37bccf54fa1b30de93cb5700, type: 3}
       propertyPath: m_Name
       value: QTE_P1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8776409625373633869, guid: 884ca2bd37bccf54fa1b30de93cb5700, type: 3}
+      propertyPath: m_Mass
+      value: 0.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 884ca2bd37bccf54fa1b30de93cb5700, type: 3}
