@@ -86,7 +86,7 @@ public abstract class ItemBase : MonoBehaviour
 
     private void EndBuffBase()
     {
-        _isBuffTrigger = false;
+        //_isBuffTrigger = false;
 
         EndBuff();
 
