@@ -98,13 +98,16 @@ public class ItemManager : MonoBehaviour
 
     public void CreateItem(ItemBase itemBase , TriggerTarget triggerTarget , int terrainId , Vector2 pos)
     {
-        var newPos = pos;
-        newPos.y += itemBase.SpriteSize.y * 0.5f;
+        var newTipPos = pos;
+        newTipPos.y += _itemTip.SpriteSize.y * 0.5f;
 
-        var itemTip = GameObject.Instantiate(_itemTip , newPos , Quaternion.identity , _itemParent_tran);
+        var itemTip = GameObject.Instantiate(_itemTip , newTipPos , Quaternion.identity , _itemParent_tran);
         itemTip.Show(() =>
         {
-            ItemBase item = GameObject.Instantiate(itemBase , newPos , Quaternion.identity , _itemParent_tran);
+            var newItemPos = pos;
+            newItemPos.y += itemBase.SpriteSize.y * 0.5f;
+
+            ItemBase item = GameObject.Instantiate(itemBase , newItemPos , Quaternion.identity , _itemParent_tran);
             item.InitBuff(triggerTarget , terrainId , ReleaseItem);
             _processItemBases.Add(item);
         });
@@ -121,6 +124,12 @@ public class ItemManager : MonoBehaviour
 
     public void OnCollider_Item(PlayerBase playerBase , ItemBase itemBase)
     {
+        if (playerBase.IsOwnBuff(itemBase.ItemType))
+        {
+            ReleaseItem(itemBase);
+            return;
+        }
+
         if (itemBase.TriggerType == TriggerTarget.Self)
             itemBase.TriggerBuff(playerBase);
         else

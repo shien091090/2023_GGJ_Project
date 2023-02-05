@@ -18,12 +18,10 @@ public class ItemTip : MonoBehaviour
     [SerializeField]
     private Color _targetColor = Color.white;
 
-    private Action _callback = null;
+    public Vector2 SpriteSize => _sr.bounds.size;
 
     public void Show(Action callback)
     {
-        _callback = callback;
-
         _sr.color = _defaultColor;
 
         _sr.DOColor(_targetColor, 0.2f).SetLoops(_showCount, LoopType.Yoyo).OnComplete(() =>

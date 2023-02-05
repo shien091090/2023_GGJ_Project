@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Character : PlayerBase
@@ -26,6 +27,7 @@ public class Character : PlayerBase
     private Rigidbody2D GetRigidBody => GetComponent<Rigidbody2D>();
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerAnimaInfo playerAnimaInfo;
+    private List<ItemType> _ownBuffs = new List<ItemType>();
 
     private bool HaveCollidingRadish => collisionRadish;
 
@@ -133,10 +135,15 @@ public class Character : PlayerBase
         return _playerType;
     }
 
-    public override void SetBuff(ItemType itemType, object data)
+    public override void SetBuff(ItemType itemType , bool isOnOrOff , object data)
     {
         if (data == null)
             return;
+
+        if (isOnOrOff)
+            _ownBuffs.Add(itemType);
+        else
+            _ownBuffs.Remove(itemType);
 
         switch (itemType)
         {
@@ -147,6 +154,11 @@ public class Character : PlayerBase
                 _buff_Direction = (int)data;
                 break;
         }
+    }
+
+    public override bool IsOwnBuff(ItemType itemType)
+    {
+        return _ownBuffs.Contains(itemType);
     }
 
     private void EnterTriggerRadish(Collider2D col)

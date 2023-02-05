@@ -10,11 +10,11 @@ public class ItemSpeed : ItemBase
 
     protected override void StartBuff()
     {
-        _playerBase.SetBuff(ItemType , _changeMulSpeed);
+        SetBuff(true , _changeMulSpeed);
     }
 
     protected override void EndBuff()
     {
-        _playerBase.SetBuff(ItemType , 1f);
+        SetBuff(false , 1f);
     }
 }

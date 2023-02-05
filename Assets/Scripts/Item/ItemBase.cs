@@ -90,6 +90,11 @@ public abstract class ItemBase : MonoBehaviour
 
     protected abstract void EndBuff();
 
+    protected void SetBuff(bool isOnOrOff, object data)
+    {
+        _playerBase.SetBuff(ItemType , isOnOrOff , data);
+    }
+
     private void ReleaseBuff()
     {
         _releaseItem?.Invoke(this);
