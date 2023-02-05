@@ -1868,10 +1868,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1924,7 +1924,7 @@ MonoBehaviour:
   txt_whoWin: {fileID: 2712864951512295294}
   P1_win: {fileID: 21300000, guid: f8aad0e5125c202439c16cf02cde16e2, type: 3}
   P2_win: {fileID: 21300000, guid: 807a09b8dff4d574fae83824f366b3fa, type: 3}
-  tie: {fileID: 21300000, guid: 3c17424fbab9394468381d4a3d63d700, type: 3}
+  tie: {fileID: 21300000, guid: 4e8b263460fcfcf4a862e500e74388ef, type: 3}
   image_c: {fileID: 1674712229095257423}
   win: {fileID: 21300000, guid: 314245216a2f98247a890c64055507c3, type: 3}
   sprite_tie: {fileID: 21300000, guid: 4e8b263460fcfcf4a862e500e74388ef, type: 3}
