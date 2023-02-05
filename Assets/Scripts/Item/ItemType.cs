@@ -7,4 +7,5 @@ public enum ItemType
     None,
     Speed,
     Control,
+    Jump
 }

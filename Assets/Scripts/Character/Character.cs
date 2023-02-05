@@ -20,6 +20,7 @@ public class Character : PlayerBase
     public QTE qte;
     private int _buff_Direction = 1;
     private float _buff_MoveSpeed = 1;
+    private float _buff_Jump = 1;
     private int radishNowHp;
     private Rigidbody2D GetRigidBody => GetComponent<Rigidbody2D>();
     [SerializeField] private Animator animator;
@@ -84,7 +85,7 @@ public class Character : PlayerBase
 
     private void Jump()
     {
-        GetRigidBody.AddForce(Vector2.up * characterSetting.jumpForce);
+        GetRigidBody.AddForce(Vector2.up * characterSetting.jumpForce * _buff_Jump);
     }
 
     private void HorizontalMove()
@@ -130,6 +131,9 @@ public class Character : PlayerBase
                 break;
             case ItemType.Control:
                 _buff_Direction = (int)data;
+                break;
+            case ItemType.Jump:
+                _buff_Jump = (float)data;
                 break;
         }
     }

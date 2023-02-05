@@ -50,4 +50,5 @@ MonoBehaviour:
   _itemBasePrefabs:
   - {fileID: 1898540229362911623, guid: 3ab8e645fab9ec64cbebb22480693982, type: 3}
   - {fileID: 3985295192338138168, guid: 2b31317abfab2e94daa203b158207a98, type: 3}
+  - {fileID: -6737605725737473405, guid: 95597395d9f7efd4f927e3ba5bfc1adc, type: 3}
   _itemTip: {fileID: 427675288000258214, guid: 5afc6db5b9464ac459279a911e9481ad, type: 3}
