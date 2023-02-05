@@ -18,4 +18,4 @@ MonoBehaviour:
   hitterSuccessDelayTime: 0.5
   failShakeTime: 0.3
   failShakeStrength: 0.5
-  qteTime: 2
+  qteTime: 3
