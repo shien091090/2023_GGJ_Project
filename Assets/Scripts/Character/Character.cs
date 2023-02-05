@@ -24,7 +24,10 @@ public class Character : PlayerBase
 
     private float _buff_MoveSpeed = 1;
 
+    private int radishLevel;
     private Rigidbody2D GetRigidBody => GetComponent<Rigidbody2D>();
+    [SerializeField] private Animator animator;
+    [SerializeField] private PlayerAnimaInfo playerAnimaInfo;
 
     private bool HaveCollidingRadish => collisionRadish;
 
@@ -171,8 +174,9 @@ public class Character : PlayerBase
 
     private void PullRadish()
     {
-        collisionRadish.StartPull();
+        radishLevel = collisionRadish.StartPull();
         qte.StartQte(ReceiveQteResult);
+        animator.Play(playerAnimaInfo.GetPullLevelAnimaName(radishLevel));
         isPlayingQte = true;
     }
 

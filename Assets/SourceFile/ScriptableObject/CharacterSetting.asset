@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   breakAcceleration: 10
   jumpForceConsume: 3
-  jumpForce: 30
+  jumpForce: 70
   strikeRiseForce: 0
   footRadius: 0.5
   moveSpeedCurve:

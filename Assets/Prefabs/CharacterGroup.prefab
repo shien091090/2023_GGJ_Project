@@ -42,7 +42,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -110,6 +110,8 @@ MonoBehaviour:
   characterSetting: {fileID: 11400000, guid: 7e08091a9eaf8cf4e99a1da4ff8aaa40, type: 2}
   characterKeySetting: {fileID: 11400000, guid: 9ebc9e3d08e8c5046a4008773821c2b3, type: 2}
   qte: {fileID: 4429696446606941300}
+  animator: {fileID: 4713788523048614793}
+  playerAnimaInfo: {fileID: 11400000, guid: 094fb4182adda2b4b8303060beddc045, type: 2}
 --- !u!61 &4385427569730892273
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -271,7 +273,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -389,6 +391,8 @@ MonoBehaviour:
   characterSetting: {fileID: 11400000, guid: 7e08091a9eaf8cf4e99a1da4ff8aaa40, type: 2}
   characterKeySetting: {fileID: 11400000, guid: 4944fcbd4f5746b4d82d3beed9aec60d, type: 2}
   qte: {fileID: 6859086082722207223}
+  animator: {fileID: 9083716349374084641}
+  playerAnimaInfo: {fileID: 11400000, guid: 094fb4182adda2b4b8303060beddc045, type: 2}
 --- !u!61 &4353166450009800174
 BoxCollider2D:
   m_ObjectHideFlags: 0
