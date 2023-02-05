@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _showCount: 3
   _shinDurTime: 0.2
+  _delayShowItem: 0.5
   _sr: {fileID: 599175034090851819}
   _particle_obj: {fileID: 6592631460653073844}
   _defaultColor: {r: 1, g: 0, b: 0, a: 1}
