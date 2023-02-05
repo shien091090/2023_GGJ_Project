@@ -89,10 +89,10 @@ public class ItemManager : MonoBehaviour
         if (TerrainManager.Instances.GetTerrain(out (int id, Vector2 pos) data))
         {
             var randIndex = Random.Range(0 , selectData.Count);
-            var values = System.Enum.GetValues(typeof(TriggerTarget));
-            var randTrigger = (TriggerTarget)Random.Range(0 , values.Length);
+            //var values = System.Enum.GetValues(typeof(TriggerTarget));
+            //var randTrigger = (TriggerTarget)Random.Range(0 , values.Length);
 
-            CreateItem(selectData[randIndex] , randTrigger , data.id , data.pos);
+            CreateItem(selectData[randIndex] , TriggerTarget.Another , data.id , data.pos);
         }
     }
 
