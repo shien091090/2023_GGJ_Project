@@ -130,12 +130,21 @@ public class ItemManager : MonoBehaviour
             return;
         }
 
+        string msg = "";
         if (itemBase.TriggerType == TriggerTarget.Self)
+        {
             itemBase.TriggerBuff(playerBase);
+            msg += playerBase.GetPlayerType().ToString();
+        }
         else
         {
             var anotherPlayer = PlayerManager.Instance.GetAnotherPlayer(playerBase.GetPlayerType());
             itemBase.TriggerBuff(anotherPlayer);
+            msg += anotherPlayer.GetPlayerType().ToString();
         }
+
+        msg += $" ¿Ú±o {itemBase.GetDirections}";
+
+        ToastManager.Instance.ShowToast(msg);
     }
 }
