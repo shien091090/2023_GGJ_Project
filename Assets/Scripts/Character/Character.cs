@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class Character : PlayerBase
 {
-    private const int LAYER_RADISH = 8;
-    private const int LAYER_CHARACTER = 11;
-    private const int LAYER_ITEM = 12;
     [SerializeField] private PlayerType _playerType;
     [SerializeField] private float moveSpeed;
     [SerializeField] private bool isOnFloor;
@@ -52,16 +49,16 @@ public class Character : PlayerBase
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if (IsCollideOn(col, LAYER_CHARACTER))
+        if (IsCollideOn(col, LayerDefine.LAYER_CHARACTER))
             EnterCollideCharacter(col);
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (IsTriggerOn(col, LAYER_RADISH))
+        if (IsTriggerOn(col, LayerDefine.LAYER_RADISH))
             EnterTriggerRadish(col);
 
-        if (IsTriggerOn(col, LAYER_ITEM))
+        if (IsTriggerOn(col, LayerDefine.LAYER_ITEM))
         {
             var itemBase = col.gameObject.GetComponent<ItemBase>();
             if (itemBase != null)
@@ -71,7 +68,7 @@ public class Character : PlayerBase
 
     private void OnTriggerExit2D(Collider2D col)
     {
-        if (IsTriggerOn(col, LAYER_RADISH))
+        if (IsTriggerOn(col, LayerDefine.LAYER_RADISH))
             ExitTriggerRadish();
     }
 

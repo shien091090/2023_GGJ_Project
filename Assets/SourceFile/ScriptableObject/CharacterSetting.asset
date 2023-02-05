@@ -16,7 +16,7 @@ MonoBehaviour:
   jumpForceConsume: 3
   jumpForce: 70
   strikeRiseForce: 0
-  footRadius: 0.5
+  footRadius: 0.2
   moveSpeedCurve:
     serializedVersion: 2
     m_Curve:

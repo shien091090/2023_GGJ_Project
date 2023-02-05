@@ -22,7 +22,9 @@ public class QTE : MonoBehaviour
 
     private Tween hitterRotate;
     private Action<bool> callback;
+    public int hitForce;
 
+    private Rigidbody2D GetRigidBody => gameObject.GetComponent<Rigidbody2D>();
 
     public void StartQte(Action<bool> _callBack)
     {
@@ -89,4 +91,16 @@ public class QTE : MonoBehaviour
         if (isPlaying && Input.GetKeyUp(keySetting.qteKey))
             TrigQte();     
     }
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        bool isCollideCharacter = col.gameObject.layer == LayerDefine.LAYER_CHARACTER;
+        if(isCollideCharacter == false) return;
+        ContactPoint2D[] contactPoints = col.contacts;
+        ContactPoint2D contactPoint = contactPoints[0];
+        Vector2 hitVector = contactPoint.normal*hitForce;
+        Debug.Log($"hitVector = {hitVector}");
+        GetRigidBody.AddForce(hitVector, ForceMode2D.Impulse);
+    }
+
 }
