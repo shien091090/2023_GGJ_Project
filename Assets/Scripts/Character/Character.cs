@@ -6,7 +6,6 @@ public class Character : PlayerBase
     private const int LAYER_RADISH = 8;
     private const int LAYER_CHARACTER = 11;
     private const int LAYER_ITEM = 12;
-    private const int LAYER_PLANE_SURFACE = 16;
     [SerializeField] private PlayerType _playerType;
     [SerializeField] private float moveSpeed;
     [SerializeField] private bool isOnFloor;
@@ -48,16 +47,8 @@ public class Character : PlayerBase
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if (IsCollideOn(col, LAYER_PLANE_SURFACE))
-            EnterCollidePlatform();
         if (IsCollideOn(col, LAYER_CHARACTER))
             EnterCollideCharacter(col);
-    }
-
-    private void OnCollisionExit2D(Collision2D col)
-    {
-        if (IsCollideOn(col, LAYER_PLANE_SURFACE))
-            ExitCollidePlatform();
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -147,13 +138,6 @@ public class Character : PlayerBase
         }
     }
 
-    private void EnterCollidePlatform()
-    {
-        // currentJumpSpeed = characterSetting.jumpForce;
-        // isJumping = false;
-        // canJump = true;
-    }
-
     private void EnterTriggerRadish(Collider2D col)
     {
         TryGetCollisionTarget(col, out collisionRadish);
@@ -221,13 +205,6 @@ public class Character : PlayerBase
         return target != null;
     }
 
-    private void ExitCollidePlatform()
-    {
-        // isOnFloor = false;
-        // if (isJumping == false)
-        //     canJump = false;
-    }
-
     private void BeStroked(float targetMoveSpeed, ContactPoint2D contactPoint)
     {
         Vector2 strikeVector = new Vector2(-contactPoint.normal.x * characterSetting.horizontalStrikeCurve.Evaluate(Mathf.Abs(targetMoveSpeed)),
@@ -245,30 +222,6 @@ public class Character : PlayerBase
     {
         bool isCollidePlatform = col.gameObject.layer == triggerTargetLayer;
         return isCollidePlatform;
-    }
-
-    private float GetVerticalMoveSpeed()
-    {
-        float verticalMoveSpeed = 0;
-        if (Input.GetKey(characterKeySetting.jumpKey))
-        {
-            if (canJump)
-            {
-                verticalMoveSpeed = currentJumpSpeed * Time.deltaTime;
-                isJumping = true;
-                if (isOnFloor == false) currentJumpSpeed = Mathf.Max(currentJumpSpeed - characterSetting.jumpForceConsume, 0);
-            }
-        }
-        else
-        {
-            if (isJumping)
-                canJump = false;
-        }
-
-        if (verticalMoveSpeed <= 0)
-            verticalMoveSpeed = GetRigidBody.velocity.y;
-
-        return verticalMoveSpeed;
     }
 
     private float GetHorizontalMoveSpeed(int direction)
