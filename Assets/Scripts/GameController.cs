@@ -9,9 +9,10 @@ public class GameController : MonoBehaviour
 {
     
    //計時器
-    public int m_Seconds,m_Min,m_Sec;//總秒數,分鐘,秒
-    public Text m_Timer;//時間文字呈現
+    public float m_Seconds,sec; //總秒數
+    //public Text m_Timer;//時間文字呈現
     public Text timeUp;//時間到
+    public Image timeImage;
     public int fractionDoudleSecond = 20;
     
     //場上蘿蔔
@@ -40,10 +41,11 @@ public class GameController : MonoBehaviour
 
     public void Start()
     {
+        sec = m_Seconds;
       startmenu.SetActive(true);
         game.SetActive(false);
         end.SetActive(false);
-    }
+ }
 
     public void click()
     {
@@ -53,11 +55,20 @@ public class GameController : MonoBehaviour
         AudioManagerScript.Instance.PlayAudioClip("click");
         StartCoroutine("CountDown");
         AudioManagerScript.Instance.PlayAudioClip("StartBgm");
+        timeImage.color = new Color(255, 255,255);
 
     }
     
     public void Update()
     {
+        if (gameStart == false)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                gameStart = true;
+                click();
+            }
+        }
         nowTxt_P1.text = int_P1.ToString();
         nowTxt_P2.text = int_P2.ToString();
         if (gameStart == true)
@@ -70,6 +81,8 @@ public class GameController : MonoBehaviour
                 gameStart = false;
               }
         }
+        
+        
        
     }
     
@@ -78,24 +91,33 @@ public class GameController : MonoBehaviour
     //倒數計時器
     IEnumerator CountDown()
     {
-        m_Timer.text = string.Format("{0}:{1}", m_Min.ToString("00"), m_Sec.ToString("00"));
-        m_Seconds = (m_Min * 60) + m_Sec;
+        yield return new WaitForSeconds(1);
+        m_Seconds--;
+     //  m_Timer.text = string.Format("{0}:{1}", m_Min.ToString("00"), m_Sec.ToString("00"));
+     //  m_Seconds = (m_Min * 60) + m_Sec;
 
-        while (m_Seconds>0)
+     while (m_Seconds>0)
         {
-            yield return new WaitForSeconds(1);
-            m_Seconds--;
-            m_Sec--;
-            if (m_Sec < 0 && m_Min > 0)
-            {
-                m_Min -= 1;
-                m_Sec += 59;
-            }
-            else if(m_Sec<0&& m_Min==0)
-            {
-                m_Sec = 0;
-            }
-            m_Timer.text = string.Format("{0}:{1}", m_Min.ToString("00"), m_Sec.ToString("00"));
+         yield return new WaitForSeconds(1);
+         m_Seconds--;
+         float f = m_Seconds / sec;
+         timeImage.fillAmount = f;
+         Debug.Log(f);
+         if (f== 0.3f)
+         {
+             timeImage.color = new Color(255, 0, 0);
+         }
+         //      m_Sec--;
+         //      if (m_Sec < 0 && m_Min > 0)
+         //      {
+         //          m_Min -= 1;
+         //          m_Sec += 59;
+         //      }
+         //      else if(m_Sec<0&& m_Min==0)
+         //      {
+         //          m_Sec = 0;
+         //      }
+         //      m_Timer.text = string.Format("{0}:{1}", m_Min.ToString("00"), m_Sec.ToString("00"));
         }
         yield return new WaitForSeconds(1);
         timeUp.text = "TIME'S UP!!!!";
