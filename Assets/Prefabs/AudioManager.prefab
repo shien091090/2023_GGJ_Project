@@ -191,6 +191,34 @@ MonoBehaviour:
     volumeScale: 1
     overlappingMode: 0
     outputSourceNum: 1
+  - name: click
+    clips:
+    - {fileID: 8300000, guid: 3df3ea28f34b8bc428a4931683a99f2c, type: 3}
+    tag: []
+    volumeScale: 1
+    overlappingMode: 0
+    outputSourceNum: 1
+  - name: StartBgm
+    clips:
+    - {fileID: 8300000, guid: 7cbe5f6f9c6cbe34887448e1833caab3, type: 3}
+    tag: []
+    volumeScale: 1
+    overlappingMode: 0
+    outputSourceNum: 0
+  - name: End
+    clips:
+    - {fileID: 8300000, guid: b7a426e65bef4a942bc00675fd91b687, type: 3}
+    tag: []
+    volumeScale: 1
+    overlappingMode: 0
+    outputSourceNum: 1
+  - name: qte_fail
+    clips:
+    - {fileID: 8300000, guid: 50331920abe94eb45b476f1628ec666b, type: 3}
+    tag: []
+    volumeScale: 1
+    overlappingMode: 0
+    outputSourceNum: 1
   audioSourcesPack:
   - name: BGM
     source: {fileID: 1246902133195910632}

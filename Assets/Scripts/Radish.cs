@@ -65,6 +65,7 @@ public class Radish : MonoBehaviour
 
     public void StartPull()
     {
+        animator.Play(animName);
         nowState = RadishState.Busy;
     }   
 
@@ -73,11 +74,12 @@ public class Radish : MonoBehaviour
         radishNowHp--;
         if (radishNowHp > 0)
         {
-            var endValue = transform.localPosition.y + 0.1f; //(radishHeight / radishMaxHp * (radishMaxHp - radishNowHp));
+            var endValue = transform.localPosition.y + 0.1f; 
             transform.DOLocalMoveY(endValue, pullOutTime).SetEase(Ease.Linear);
         }
         else
         {
+            animator.SetTrigger("Finish");
             nowState = RadishState.Complete;
             transform.DOLocalMoveY(transform.localPosition.y + 1f, flyOutTime).OnComplete(() => {
                 sprite.DOFade(0, flyOutTime).SetEase(Ease.Linear).OnComplete(() => {
@@ -90,6 +92,7 @@ public class Radish : MonoBehaviour
 
     public void PullQteFail()
     {
+        animator.SetTrigger("Finish");
         nowState = RadishState.Idle;
     }
 }
