@@ -8,11 +8,7 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     
-    //音樂
-    public AudioSource my_audio;
-    public AudioClip ac_End;
-    
-    //計時器
+   //計時器
     public int m_Seconds,m_Min,m_Sec;//總秒數,分鐘,秒
     public Text m_Timer;//時間文字呈現
     public Text timeUp;//時間到
@@ -44,8 +40,7 @@ public class GameController : MonoBehaviour
 
     public void Start()
     {
-        my_audio = GetComponent<AudioSource>();
-        startmenu.SetActive(true);
+      startmenu.SetActive(true);
         game.SetActive(false);
         end.SetActive(false);
     }
@@ -55,8 +50,10 @@ public class GameController : MonoBehaviour
         gameStart = true; 
         startmenu.SetActive(false);
         game.SetActive(true);
+        AudioManagerScript.Instance.PlayAudioClip("click");
         StartCoroutine("CountDown");
-        
+        AudioManagerScript.Instance.PlayAudioClip("StartBgm");
+
     }
     
     public void Update()
@@ -131,8 +128,8 @@ public class GameController : MonoBehaviour
     //結算畫面
     public void End()
     {
-        my_audio.clip= ac_End;
-        my_audio.Play();
+        AudioManagerScript.Instance.Stop(0);
+        AudioManagerScript.Instance.PlayAudioClip("End");
         WinGame();
         txt_P1.text = int_P1.ToString();
         txt_P2.text = int_P2.ToString();
