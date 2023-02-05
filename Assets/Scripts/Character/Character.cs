@@ -161,10 +161,11 @@ public class Character : PlayerBase
 
     private void PullRadish()
     {
+        isPlayingQte = true;
+        
         StopAllCoroutines();
         StartCoroutine(Cor_PlayPullRadishSound());
         
-        isPlayingQte = true;
         collisionRadish.StartPull();
         RequestQte();
     }
@@ -284,8 +285,9 @@ public class Character : PlayerBase
     {
         while (isPlayingQte)
         {
+            Debug.Log("Cor_PlayPullRadishSound");
             AudioManagerScript.Instance.PlayAudioClip("pulling_radish");
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.7f);
         }
     }
 }
