@@ -219,6 +219,27 @@ MonoBehaviour:
     volumeScale: 1
     overlappingMode: 0
     outputSourceNum: 1
+  - name: pulling_radish
+    clips:
+    - {fileID: 8300000, guid: 5f1426ee3a860fb4abf9bd60ac0f29e9, type: 3}
+    tag: []
+    volumeScale: 1
+    overlappingMode: 0
+    outputSourceNum: 1
+  - name: character_strike
+    clips:
+    - {fileID: 8300000, guid: 87c50d26f0f6cf6439b4566c7f2dd227, type: 3}
+    tag: []
+    volumeScale: 1
+    overlappingMode: 0
+    outputSourceNum: 1
+  - name: trigger_item
+    clips:
+    - {fileID: 8300000, guid: 9b07f98b09ab8534494172af8ed04518, type: 3}
+    tag: []
+    volumeScale: 1
+    overlappingMode: 0
+    outputSourceNum: 1
   audioSourcesPack:
   - name: BGM
     source: {fileID: 1246902133195910632}

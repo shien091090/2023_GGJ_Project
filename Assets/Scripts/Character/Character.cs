@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -57,6 +58,7 @@ public class Character : PlayerBase
 
         if (IsTriggerOn(col, LayerDefine.LAYER_ITEM))
         {
+            AudioManagerScript.Instance.PlayAudioClip("trigger_item");
             var itemBase = col.gameObject.GetComponent<ItemBase>();
             if (itemBase != null)
                 ItemManager.Instance.OnCollider_Item(this, itemBase);
@@ -159,6 +161,9 @@ public class Character : PlayerBase
 
     private void PullRadish()
     {
+        StopAllCoroutines();
+        StartCoroutine(Cor_PlayPullRadishSound());
+        
         isPlayingQte = true;
         collisionRadish.StartPull();
         RequestQte();
@@ -174,12 +179,14 @@ public class Character : PlayerBase
                 animator.SetTrigger("PullFinish");
                 isPlayingQte = false;
                 gameController.RadishFraction(_playerType, 1);
+                AudioManagerScript.Instance.PlayAudioClip("pull_radish_success");
             }
             else
                 RequestQte();
         }
         else
         {
+            AudioManagerScript.Instance.PlayAudioClip("qte_fail");
             collisionRadish.PullQteFail();
             animator.SetTrigger("PullFinish");
             isPlayingQte = false;
@@ -216,6 +223,7 @@ public class Character : PlayerBase
 
     private void BeStroked(float targetMoveSpeed, ContactPoint2D contactPoint)
     {
+        AudioManagerScript.Instance.PlayAudioClip("character_strike");
         Vector2 strikeVector = new Vector2(-contactPoint.normal.x * characterSetting.horizontalStrikeCurve.Evaluate(Mathf.Abs(targetMoveSpeed)),
             characterSetting.verticalStrikeCurve.Evaluate(Mathf.Abs(targetMoveSpeed)));
         GetRigidBody.AddForce(strikeVector, ForceMode2D.Impulse);
@@ -270,5 +278,14 @@ public class Character : PlayerBase
         else if (Input.GetKey(characterKeySetting.moveRightKey)) direction = 1;
 
         return direction;
+    }
+
+    private IEnumerator Cor_PlayPullRadishSound()
+    {
+        while (isPlayingQte)
+        {
+            AudioManagerScript.Instance.PlayAudioClip("pulling_radish");
+            yield return new WaitForSeconds(1f);
+        }
     }
 }
