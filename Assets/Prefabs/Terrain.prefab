@@ -1000,13 +1000,10 @@ MonoBehaviour:
     sr: {fileID: 7632919710107686379}
   - id: 0
     IsOnwItem: 0
-    sr: {fileID: 3551036247408084571}
+    sr: {fileID: 5097238752372263698}
   - id: 0
     IsOnwItem: 0
-    sr: {fileID: 6955942214855514902}
-  - id: 0
-    IsOnwItem: 0
-    sr: {fileID: 5397704984014422049}
+    sr: {fileID: 8715100349546556658}
 --- !u!1 &2905767378018010487
 GameObject:
   m_ObjectHideFlags: 0
