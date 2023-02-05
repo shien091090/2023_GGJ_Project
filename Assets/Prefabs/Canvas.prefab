@@ -918,7 +918,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3541254070626345205
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1764,7 +1764,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5762313385126663500
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1913,7 +1913,7 @@ MonoBehaviour:
   timeUp: {fileID: 5762313383620015765}
   timeImage: {fileID: 7501498509127294812}
   fractionDoudleSecond: 20
-  maxRadish: 5
+  maxRadish: 9
   countRadish: 0
   gameStart: 0
   nowTxt_P1: {fileID: 5762313384971757780}

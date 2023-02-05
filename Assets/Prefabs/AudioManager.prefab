@@ -186,7 +186,7 @@ MonoBehaviour:
     outputSourceNum: 1
   - name: pull_radish_success
     clips:
-    - {fileID: 8300000, guid: b7a426e65bef4a942bc00675fd91b687, type: 3}
+    - {fileID: 8300000, guid: 787f11154404e7847a46495e7a1c4763, type: 3}
     tag: []
     volumeScale: 1
     overlappingMode: 0

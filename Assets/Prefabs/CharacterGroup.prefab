@@ -160,7 +160,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3092852730099547815}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.25, y: 1.01, z: 0}
+  m_LocalPosition: {x: 7, y: 0.21, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -184,9 +184,6 @@ MonoBehaviour:
   _playerType: 0
   moveSpeed: 0
   isOnFloor: 0
-  currentJumpSpeed: 0
-  isJumping: 0
-  canJump: 0
   isPlayingQte: 0
   collisionRadish: {fileID: 0}
   moveTimer: 0
@@ -383,7 +380,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5329436351204520574}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.25, y: 1.01, z: 0}
+  m_LocalPosition: {x: -7, y: 0.21, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -407,9 +404,6 @@ MonoBehaviour:
   _playerType: 1
   moveSpeed: 0
   isOnFloor: 0
-  currentJumpSpeed: 0
-  isJumping: 0
-  canJump: 0
   isPlayingQte: 0
   collisionRadish: {fileID: 0}
   moveTimer: 0
@@ -589,7 +583,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8776409625373633856, guid: 884ca2bd37bccf54fa1b30de93cb5700, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.5
+      value: 2.56
       objectReference: {fileID: 0}
     - target: {fileID: 8776409625373633856, guid: 884ca2bd37bccf54fa1b30de93cb5700, type: 3}
       propertyPath: m_LocalPosition.z
@@ -678,7 +672,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8776409625373633856, guid: 884ca2bd37bccf54fa1b30de93cb5700, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.5
+      value: 2.56
       objectReference: {fileID: 0}
     - target: {fileID: 8776409625373633856, guid: 884ca2bd37bccf54fa1b30de93cb5700, type: 3}
       propertyPath: m_LocalPosition.z
