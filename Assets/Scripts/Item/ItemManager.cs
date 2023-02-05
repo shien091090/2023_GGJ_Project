@@ -10,9 +10,6 @@ public class ItemManager : MonoBehaviour
     private Transform _itemParent_tran;
 
     [SerializeField]
-    private List<Transform> _createTrans = null;
-
-    [SerializeField]
     private bool _isRandomCreateItem = false;
 
     [SerializeField]
@@ -20,6 +17,9 @@ public class ItemManager : MonoBehaviour
 
     [SerializeField]
     private List<ItemBase> _itemBasePrefabs = null;
+
+    [SerializeField]
+    private ItemTip _itemTip = null;
 
     private bool _isNeedCreateItem = false;
     private bool _isNeedRemoveItem => _waiteRemoveItemBases.Count > 0;
@@ -101,9 +101,13 @@ public class ItemManager : MonoBehaviour
         var newPos = pos;
         newPos.y += itemBase.SpriteSize.y * 0.5f;
 
-        ItemBase item = GameObject.Instantiate(itemBase , newPos , Quaternion.identity , _itemParent_tran);
-        item.InitBuff(triggerTarget , terrainId , ReleaseItem);
-        _processItemBases.Add(item);
+        var itemTip = GameObject.Instantiate(_itemTip , newPos , Quaternion.identity , _itemParent_tran);
+        itemTip.Show(() =>
+        {
+            ItemBase item = GameObject.Instantiate(itemBase , newPos , Quaternion.identity , _itemParent_tran);
+            item.InitBuff(triggerTarget , terrainId , ReleaseItem);
+            _processItemBases.Add(item);
+        });
     }
 
     private void ReleaseItem(ItemBase itemBase)
