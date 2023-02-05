@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dc490bd3c6fda04998ba447bdac3427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _directions: "\u7DE9\u901F"
   _sr: {fileID: 8502326242051114049}
   _collider2D: {fileID: 4085956997584969065}
   _buffTime: 3
