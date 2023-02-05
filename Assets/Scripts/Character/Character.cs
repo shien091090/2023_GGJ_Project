@@ -8,9 +8,6 @@ public class Character : PlayerBase
     [SerializeField] private PlayerType _playerType;
     [SerializeField] private float moveSpeed;
     [SerializeField] private bool isOnFloor;
-    [SerializeField] private float currentJumpSpeed;
-    [SerializeField] private bool isJumping;
-    [SerializeField] private bool canJump;
     [SerializeField] private bool isPlayingQte;
     [SerializeField] private Radish collisionRadish;
     [SerializeField] private float moveTimer;
@@ -75,41 +72,19 @@ public class Character : PlayerBase
     private void CheckOnFloor()
     {
         isOnFloor = Physics2D.OverlapCircle(footPoint.position, characterSetting.footRadius, LayerMask.GetMask("Platform"));
-        if (isOnFloor)
-        {
-            if (isJumping)
-                isJumping = false;
-
-            currentJumpSpeed = characterSetting.jumpForce;
-            canJump = true;
-        }
-        else
-        {
-            if (isJumping == false)
-                canJump = false;
-        }
     }
 
     private void CheckToJump()
     {
-        if (Input.GetKey(characterKeySetting.jumpKey))
+        if (Input.GetKeyDown(characterKeySetting.jumpKey))
         {
-            if (canJump) Jump();
-        }
-        else
-        {
-            if (isJumping)
-                canJump = false;
+            if (isOnFloor) Jump();
         }
     }
 
     private void Jump()
     {
-        isJumping = true;
-        if (isOnFloor == false) currentJumpSpeed = Mathf.Max(currentJumpSpeed - characterSetting.jumpForceConsume, 0);
-
-        if (currentJumpSpeed > 0)
-            GetRigidBody.AddForce(Vector2.up * currentJumpSpeed);
+        GetRigidBody.AddForce(Vector2.up * characterSetting.jumpForce);
     }
 
     private void HorizontalMove()
@@ -128,14 +103,7 @@ public class Character : PlayerBase
             animator.SetBool("IsRunning", isRunning);
         }
 
-        if (horizontalMoveSpeed != 0 && moveDirection != 0)
-        {
-            spriteRenderer.flipX = moveDirection == 1;
-            // if (moveDirection == 1)
-            //     root.localScale = new Vector3(root.localScale.x, Mathf.Abs(root.localScale.y), root.localScale.z);
-            // if (moveDirection == -1)
-            //     root.localScale = new Vector3(root.localScale.x, -Mathf.Abs(root.localScale.y), root.localScale.z);
-        }
+        if (horizontalMoveSpeed != 0 && moveDirection != 0) spriteRenderer.flipX = moveDirection == 1;
 
         transform.Translate(Vector3.right * Time.deltaTime * horizontalMoveSpeed);
     }
