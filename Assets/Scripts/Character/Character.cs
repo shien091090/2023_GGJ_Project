@@ -20,6 +20,7 @@ public class Character : PlayerBase
     public Transform footPoint;
     public CharacterSetting characterSetting;
     public CharacterKeySetting characterKeySetting;
+    public GameController gameController;
     public QTE qte;
     private int _buff_Direction = 1;
     private float _buff_MoveSpeed = 1;
@@ -195,7 +196,7 @@ public class Character : PlayerBase
             {
                 animator.SetTrigger("PullFinish");
                 isPlayingQte = false;
-                //TODO : 加分
+                gameController.RadishFraction(_playerType, 1);
             }
             else
                 RequestQte();

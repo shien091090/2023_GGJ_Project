@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1273174, g: 0.13414761, b: 0.12107885, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -398,6 +398,17 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5762313385270735963, guid: 69c415787269b7a448bfd7388d3014e1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 69c415787269b7a448bfd7388d3014e1, type: 3}
+--- !u!114 &1284260897 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5762313385270735958, guid: 69c415787269b7a448bfd7388d3014e1, type: 3}
+  m_PrefabInstance: {fileID: 1284260896}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3f87777457d95f41baa78a68dbfde31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1284260898 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5851833265712816129, guid: 69c415787269b7a448bfd7388d3014e1, type: 3}
@@ -655,6 +666,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 326956634188499043, guid: ac46cab495dba224f812a33543f73106, type: 3}
+      propertyPath: gameController
+      value: 
+      objectReference: {fileID: 1284260897}
     - target: {fileID: 1042518241368788517, guid: ac46cab495dba224f812a33543f73106, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -707,6 +722,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterGroup
       objectReference: {fileID: 0}
+    - target: {fileID: 5971166291169004221, guid: ac46cab495dba224f812a33543f73106, type: 3}
+      propertyPath: gameController
+      value: 
+      objectReference: {fileID: 1284260897}
     - target: {fileID: 9083716349374084641, guid: ac46cab495dba224f812a33543f73106, type: 3}
       propertyPath: m_Controller
       value: 
