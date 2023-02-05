@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Character : PlayerBase
@@ -17,7 +18,9 @@ public class Character : PlayerBase
     [SerializeField] private Radish collisionRadish;
     [SerializeField] private float moveTimer;
     [SerializeField] private bool isRunning;
+    [SerializeField] private int moveDirection;
     public Transform footPoint;
+    public SpriteRenderer spriteRenderer;
     public CharacterSetting characterSetting;
     public CharacterKeySetting characterKeySetting;
     public GameController gameController;
@@ -114,7 +117,7 @@ public class Character : PlayerBase
 
     private void HorizontalMove()
     {
-        int moveDirection = GetInputMoveDirection() * _buff_Direction;
+        moveDirection = GetInputMoveDirection() * _buff_Direction;
         float horizontalMoveSpeed = GetHorizontalMoveSpeed(moveDirection) * _buff_MoveSpeed;
 
         if (isRunning && horizontalMoveSpeed == 0)
@@ -127,7 +130,16 @@ public class Character : PlayerBase
             isRunning = true;
             animator.SetBool("IsRunning", isRunning);
         }
-        
+
+        if (horizontalMoveSpeed != 0 && moveDirection != 0)
+        {
+            spriteRenderer.flipX = moveDirection == 1;
+            // if (moveDirection == 1)
+            //     root.localScale = new Vector3(root.localScale.x, Mathf.Abs(root.localScale.y), root.localScale.z);
+            // if (moveDirection == -1)
+            //     root.localScale = new Vector3(root.localScale.x, -Mathf.Abs(root.localScale.y), root.localScale.z);
+        }
+
         transform.Translate(Vector3.right * Time.deltaTime * horizontalMoveSpeed);
     }
 
@@ -136,7 +148,7 @@ public class Character : PlayerBase
         return _playerType;
     }
 
-    public override void SetBuff(ItemType itemType , bool isOnOrOff , object data)
+    public override void SetBuff(ItemType itemType, bool isOnOrOff, object data)
     {
         if (data == null)
             return;
