@@ -79,7 +79,7 @@ public class Radish : MonoBehaviour
         }
         else
         {
-            animator.SetTrigger("Finish");
+            animator.Play("Empty");
             nowState = RadishState.Complete;
             transform.DOLocalMoveY(transform.localPosition.y + 1f, flyOutTime).OnComplete(() => {
                 sprite.DOFade(0, flyOutTime).SetEase(Ease.Linear).OnComplete(() => {
@@ -92,7 +92,7 @@ public class Radish : MonoBehaviour
 
     public void PullQteFail()
     {
-        animator.SetTrigger("Finish");
+        animator.Play("Empty");
         nowState = RadishState.Idle;
     }
 }
