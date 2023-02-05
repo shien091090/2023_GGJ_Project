@@ -15,14 +15,13 @@ public class Character : PlayerBase
     [SerializeField] private bool isPlayingQte;
     [SerializeField] private Radish collisionRadish;
     [SerializeField] private float moveTimer;
+    [SerializeField] private bool isRunning;
     public Transform footPoint;
     public CharacterSetting characterSetting;
     public CharacterKeySetting characterKeySetting;
     public QTE qte;
     private int _buff_Direction = 1;
-
     private float _buff_MoveSpeed = 1;
-
     private int radishNowHp;
     private Rigidbody2D GetRigidBody => GetComponent<Rigidbody2D>();
     [SerializeField] private Animator animator;
@@ -114,6 +113,18 @@ public class Character : PlayerBase
     {
         int moveDirection = GetInputMoveDirection() * _buff_Direction;
         float horizontalMoveSpeed = GetHorizontalMoveSpeed(moveDirection) * _buff_MoveSpeed;
+
+        if (isRunning && horizontalMoveSpeed == 0)
+        {
+            isRunning = false;
+            animator.SetBool("IsRunning", isRunning);
+        }
+        else if (isRunning == false && Mathf.Abs(horizontalMoveSpeed) > 0)
+        {
+            isRunning = true;
+            animator.SetBool("IsRunning", isRunning);
+        }
+        
         transform.Translate(Vector3.right * Time.deltaTime * horizontalMoveSpeed);
     }
 
