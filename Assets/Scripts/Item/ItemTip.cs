@@ -13,6 +13,9 @@ public class ItemTip : MonoBehaviour
     private float _shinDurTime = 0.2f;
 
     [SerializeField]
+    private float _delayShowItem = 0.2f;
+
+    [SerializeField]
     private SpriteRenderer _sr;
 
     [SerializeField]
@@ -38,7 +41,7 @@ public class ItemTip : MonoBehaviour
             _particle_obj.SetActive(true);
             _sr.enabled = false;
         });
-        sequence.AppendInterval(0.2f);
+        sequence.AppendInterval(_delayShowItem);
         sequence.OnComplete(() =>
         {
             callback?.Invoke();
