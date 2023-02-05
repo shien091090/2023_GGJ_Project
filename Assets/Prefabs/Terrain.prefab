@@ -998,12 +998,6 @@ MonoBehaviour:
   _terrainGroups:
   - id: 0
     IsOnwItem: 0
-    sr: {fileID: 3551036247408084571}
-  - id: 0
-    IsOnwItem: 0
-    sr: {fileID: 6955942214855514902}
-  - id: 0
-    IsOnwItem: 0
     sr: {fileID: 6345164011724137646}
   - id: 0
     IsOnwItem: 0
@@ -1017,12 +1011,6 @@ MonoBehaviour:
   - id: 0
     IsOnwItem: 0
     sr: {fileID: 5777897506671124557}
-  - id: 0
-    IsOnwItem: 0
-    sr: {fileID: 4092022386972133815}
-  - id: 0
-    IsOnwItem: 0
-    sr: {fileID: 6121267939644761858}
   - id: 0
     IsOnwItem: 0
     sr: {fileID: 3647933361906757134}
