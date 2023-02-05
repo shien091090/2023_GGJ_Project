@@ -32,6 +32,9 @@ public class GameController : MonoBehaviour
     public Sprite P1_win;
     public Sprite P2_win;
     public Sprite tie;
+    public Image image_c;
+    public Sprite win;
+    public Sprite sprite_tie;
     
      //開始畫面
      public GameObject startmenu;
@@ -165,16 +168,19 @@ public class GameController : MonoBehaviour
         if (int_P1 > int_P2)
         {
             image_whoWin.sprite = P1_win;
+            image_c.sprite = win;
             txt_whoWin.text = int_P1.ToString();
         }
         else if(int_P2>int_P1)
         {
             image_whoWin.sprite = P2_win;
+            image_c.sprite = win;
             txt_whoWin.text = int_P2.ToString();
         }
         else
         {
             image_whoWin.sprite = tie;
+            image_c.sprite = sprite_tie;
             txt_whoWin.text = int_P1.ToString();
         }
         
