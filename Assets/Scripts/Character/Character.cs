@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Character : PlayerBase
@@ -162,10 +160,10 @@ public class Character : PlayerBase
     private void PullRadish()
     {
         isPlayingQte = true;
-        
+
         StopAllCoroutines();
         StartCoroutine(Cor_PlayPullRadishSound());
-        
+
         collisionRadish.StartPull();
         RequestQte();
     }
@@ -225,6 +223,8 @@ public class Character : PlayerBase
     private void BeStroked(float targetMoveSpeed, ContactPoint2D contactPoint)
     {
         AudioManagerScript.Instance.PlayAudioClip("character_strike");
+        CharacterStrikeEffectManager.Instance.PlayStrikeEffect(_playerType, contactPoint.point);
+
         Vector2 strikeVector = new Vector2(-contactPoint.normal.x * characterSetting.horizontalStrikeCurve.Evaluate(Mathf.Abs(targetMoveSpeed)),
             characterSetting.verticalStrikeCurve.Evaluate(Mathf.Abs(targetMoveSpeed)));
         GetRigidBody.AddForce(strikeVector, ForceMode2D.Impulse);
