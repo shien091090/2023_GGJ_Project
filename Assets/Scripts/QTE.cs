@@ -11,19 +11,16 @@ public class QTE : MonoBehaviour
     private GameObject hitter;
     [SerializeField]
     private Image hitBox;
+    [SerializeField]
+    private QteInfo info;
+    [SerializeField]
+    private CharacterKeySetting keySetting;
 
     private bool isPlaying;
     private float hitBoxStart;
     private float hitBoxEnd;
 
     private Tween hitterRotate;
-
-    [SerializeField]
-    private QteInfo info;
-
-    [SerializeField]
-    private CharacterKeySetting keySetting;
-
     private Action<bool> callback;
 
 

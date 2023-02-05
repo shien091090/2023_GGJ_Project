@@ -1690,7 +1690,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5762313385270735962
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1789,8 +1789,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Seconds: 0
-  m_Min: 0
-  m_Sec: 10
+  m_Min: 3
+  m_Sec: 0
   m_Timer: {fileID: 5762313384744718433}
   timeUp: {fileID: 5762313383620015765}
   fractionDoudleSecond: 20
