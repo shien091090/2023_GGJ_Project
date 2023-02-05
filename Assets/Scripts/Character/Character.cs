@@ -164,6 +164,7 @@ public class Character : PlayerBase
     private void PullRadish()
     {
         isPlayingQte = true;
+        moveSpeed = 0;
 
         StopAllCoroutines();
         StartCoroutine(Cor_PlayPullRadishSound());
