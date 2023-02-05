@@ -23,7 +23,7 @@ public class Character : PlayerBase
 
     private float _buff_MoveSpeed = 1;
 
-    private int radishLevel;
+    private int radishNowHp;
     private Rigidbody2D GetRigidBody => GetComponent<Rigidbody2D>();
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerAnimaInfo playerAnimaInfo;
@@ -158,10 +158,9 @@ public class Character : PlayerBase
 
     private void PullRadish()
     {
-        radishLevel = collisionRadish.StartPull();
-        qte.StartQte(ReceiveQteResult);
-        animator.Play(playerAnimaInfo.GetPullLevelAnimaName(radishLevel));
         isPlayingQte = true;
+        collisionRadish.StartPull();
+        RequestQte();
     }
 
     private void ReceiveQteResult(bool isQteSuccess)
@@ -171,17 +170,26 @@ public class Character : PlayerBase
             collisionRadish.PullQteSuccess();
             if (collisionRadish.GetIsComplete())
             {
+                animator.SetTrigger("PullFinish");
                 isPlayingQte = false;
                 //TODO : 加分
             }
             else
-                qte.StartQte(ReceiveQteResult);
+                RequestQte();
         }
         else
         {
             collisionRadish.PullQteFail();
+            animator.SetTrigger("PullFinish");
             isPlayingQte = false;
         }
+    }
+
+    private void RequestQte()
+    {
+        qte.StartQte(ReceiveQteResult);
+        radishNowHp = collisionRadish.RemainHp();
+        animator.Play(playerAnimaInfo.GetPullLevelAnimaName(radishNowHp));
     }
 
     private void EnterCollideCharacter(Collision2D col)
