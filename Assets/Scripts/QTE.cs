@@ -45,7 +45,7 @@ public class QTE : MonoBehaviour
             QteFail();
     }
 
-    public void QteUnexceptedStop()
+    public void QteUnexpectedStop()
     {
         QteFail();
     }
@@ -68,6 +68,7 @@ public class QTE : MonoBehaviour
     }
     private void QteSuccess()
     {
+        AudioManagerScript.Instance.PlayAudioClip("qte_success");
         callback(true);
         hitter.transform.rotation = Quaternion.Euler(0, 0, 0);
 

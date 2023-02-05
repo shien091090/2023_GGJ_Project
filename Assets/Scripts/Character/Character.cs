@@ -147,7 +147,7 @@ public class Character : PlayerBase
     {
         if (isPlayingQte)
         {
-            qte.QteUnexceptedStop();
+            qte.QteUnexpectedStop();
             collisionRadish.PullQteFail();
             isPlayingQte = false;
         }
