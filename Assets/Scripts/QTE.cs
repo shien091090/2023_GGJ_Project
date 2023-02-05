@@ -69,7 +69,7 @@ public class QTE : MonoBehaviour
     {
         AudioManagerScript.Instance.PlayAudioClip("qte_success");
         callback(true);
-        hitterRotate.Kill();
+        // hitterRotate.Kill();
         hitter.transform.rotation = Quaternion.Euler(0, 0, 0);
 
         hitBox.transform.DOScale(new Vector3(1.3f,1.3f,1),info.failShakeTime).OnComplete(()=> {
